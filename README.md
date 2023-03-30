@@ -1,5 +1,4 @@
 # PlantSense-Cloud
-PlantSense-Cloud: 
 1. BE_Raspberry_Flask (backend)
 2. FE_React_App (frontend)
 
