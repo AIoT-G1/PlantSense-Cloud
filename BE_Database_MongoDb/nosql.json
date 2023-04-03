@@ -1,7 +1,16 @@
 {
   "water_tank_data": {
-    "level": 1
-  },
+    "items": [{
+      "_id": 0,
+      "timestamp": 0,
+      "level": 0
+    }, 
+    {
+      "_id": 1,
+      "timestamp": 0,
+      "level": 0
+    }
+  ]},
   "plant_data": {
     "MAC_addr_1": {
       "name": "plant 1",
