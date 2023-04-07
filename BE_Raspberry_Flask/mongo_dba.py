@@ -28,10 +28,8 @@ class mongo_dba:
     def post_data(self, data):
         self.col.insert_one(data)
 
-    def getDataset(self):
-        dataset = self.col.find({},{
-
-        })
+    def get_all_data(self):
+        dataset = self.col.find({})
         if dataset:
             return dataset
         else:
