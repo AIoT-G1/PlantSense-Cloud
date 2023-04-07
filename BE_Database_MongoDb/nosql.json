@@ -48,7 +48,7 @@
       "watering_history": [{
         "timestamp": ""
 
-      },
+      }
     ]
   },
   "sensor_data": {
@@ -58,9 +58,7 @@
       "type": "plant_node_data",
       "plant_node_id": "serialnumber",
       "moisture": 0,
-      "light": 0,
-      "temp": 0,
-      "humidity": 0
+      "light": 0
     },
     "RANDOM_GENERATED_NOSQL_ID_00001": {
       "timestamp": 0,
@@ -68,9 +66,7 @@
       "type": "plant_node_data",
       "plant_node_id": "serialnumber",
       "moisture": 0,
-      "light": 0,
-      "temp": 0,
-      "humidity": 0
+      "light": 0
     },
     "RANDOM_GENERATED_NOSQL_ID_00002": {
       "timestamp": 0,
@@ -78,9 +74,7 @@
       "type": "plant_node_data",
       "plant_node_id": "serialnumber",
       "moisture": 0,
-      "light": 0,
-      "temp": 0,
-      "humidity": 0
+      "light": 0
     },
     "RANDOM_GENERATED_NOSQL_ID_00003": {
       "timestamp": 0,
@@ -88,9 +82,7 @@
       "type": "plant_node_data",
       "plant_node_id": "serialnumber",
       "moisture": 0,
-      "light": 0,
-      "temp": 0,
-      "humidity": 0
+      "light": 0
     }
   }
 }
