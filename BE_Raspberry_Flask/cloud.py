@@ -21,20 +21,20 @@ def onConnect(client, userdata, flags, rc):
 
 
 def onMessage(client, userdata, msg):
-	print(str(msg))
 	print(str(msg.payload.decode("utf-8")))
-	print(str(msg.topic))
 	data = json.loads(msg.payload.decode("utf-8"))
-	print(str(data))
 	
-	if msg.topic.split("-")[1] == "sensor_data":
-		conn = mongo_dba("sensor_data").post_data(data)
+	if msg.topic.split("-")[1] == "plant_sensor_data":
+		conn = mongo_dba("plant_sensor_data").post_data(data)
   
 	if msg.topic.split("-")[1] == "last_watered":
-		conn = mongo_dba("plant_data").update_last_watered(data)
+		conn = mongo_dba("plant_info").update_last_watered(data)
   
 	if msg.topic.split("-")[1] == "plant_info":
 		conn = mongo_dba("plant_info").update_plant_info(data)
+  
+	if msg.topic.split("-")[1] == "system_sensor_data":
+		conn = mongo_dba("system_sensor_data").update_system_data(data)
 	 
 	 
 

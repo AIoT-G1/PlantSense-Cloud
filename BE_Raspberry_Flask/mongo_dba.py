@@ -14,6 +14,8 @@ class mongo_dba:
             self.col = self.db.plant_info
         if collection == "system_sensor_data":
             self.col = self.db.system_sensor_data
+        if collection == "last_watered":
+            self.col = self.db.last_watered
 
     def get_last_sensor_values(self):
         output = self.col.find_one(sort=[( '_id', DESCENDING )])
@@ -36,6 +38,8 @@ class mongo_dba:
             return None
     
     def update_last_watered(self, data):
+        print(data)
+        
         find = self.col.find_one({'plant_node_id': data['plant_node_id']})
         
         if find == None:
@@ -50,6 +54,7 @@ class mongo_dba:
         print(str(output))
         
     def update_plant_info(self, data):
+        print(data)
         find = self.col.find_one({'plant_node_id': data['plant_node_id']})
 
         if find == None:
@@ -57,10 +62,17 @@ class mongo_dba:
         else:
             output = self.col.update_one(
                 {'plant_node_id': data['plant_node_id']},
-                {'$push': {'watering_history': data['timestamp']}}
+                {'$set': data}, upsert=True
             )
 
         print(str(output))
+        
+    def update_system_data(self, data):
+        print(data)
+        output = self.col.insert_one(data)
+
+        print(str(output))
+        
         
         
     
