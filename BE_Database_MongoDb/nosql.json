@@ -5,8 +5,7 @@
       "timestamp": 0,
       "water_level": 0,
       "temp": 0,
-      "humidity": 0,
-      "last_time_watered": 0
+      "humidity": 0
     }
   },
   "plant_data": {
