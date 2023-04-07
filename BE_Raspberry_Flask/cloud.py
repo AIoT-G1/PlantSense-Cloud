@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify, json
 from flask_cors import CORS
 from paho.mqtt import client as mqttClient
+from mongo_dba import mongo_dba
 import ssl
 
 #   Init Flask Server   #
@@ -13,15 +14,21 @@ mqtt = None
 #   Init MQTT Client   #
 def onConnect(client, userdata, flags, rc):
 	# MQTT topics to subscribe
-	mqtt.subscribe("nus_IS5451_Plantsense_global_sensor_data")
-	mqtt.subscribe("nus_IS5451_Plantsense_plant_disease")
-	mqtt.subscribe("nus_IS5451_Plantsense_buggy_state")
+	mqtt.subscribe("nusIS5451Plantsense-sensor_data")
+	mqtt.subscribe("nusIS5451Plantsense-plant_disease")
+	mqtt.subscribe("nusIS5451Plantsense-watering_system")
 
 
 def onMessage(client, userdata, msg):
 	print(str(msg.payload.decode("utf-8")))
-	#data = json.loads(str(msg.payload.decode("utf-8")))
-	#print(str(data))
+	data = json.loads(str(msg.payload.decode("utf-8")))
+	print(str(data))
+	
+	# retrieve topic and send to the collection
+	conn = mongo_dba(msg.topic.split("-")[1])
+	conn.post_data(data)
+     
+     
 
 mqtt = mqttClient.Client()
 mqtt.on_connect = onConnect
@@ -35,10 +42,13 @@ mqtt.loop_start()
 
 #   Server API   #
 
-# Obtener valores más recientes almacenados en BBDD
 @app.route('/sensor_values', methods=['GET'])
 def get_sensor_values():
-	return "sensor values here"
+	return mongo_dba("sensor_values").get_last_sensor_values()
+
+@app.route('/plant_data', methods=['GET'])
+def get_plant_data():
+	return mongo_dba("plant_data").get_all_data()
 
 @app.route('/camera', methods=['GET'])
 def get_camera_picture():

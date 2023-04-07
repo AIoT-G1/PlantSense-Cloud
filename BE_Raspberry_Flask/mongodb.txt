@@ -1,0 +1,8 @@
+uri_
+mongodb://plantsense:plantsense@localhost:27017/?authMechanism=DEFAULT
+
+user_
+plantsense
+
+password_
+plantsense_2023
