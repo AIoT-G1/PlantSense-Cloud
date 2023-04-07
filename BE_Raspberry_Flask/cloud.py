@@ -14,15 +14,17 @@ mqtt = None
 #   Init MQTT Client   #
 def onConnect(client, userdata, flags, rc):
 	# MQTT topics to subscribe
-	mqtt.subscribe("nusIS5451Plantsense-sensor_data")
-	mqtt.subscribe("nusIS5451Plantsense-plant_disease")
-	mqtt.subscribe("nusIS5451Plantsense-watering_system")
+	mqtt.subscribe("nusIS5451Plantsense-plant_sensor_data")
+	mqtt.subscribe("nusIS5451Plantsense-plant_info")
+	mqtt.subscribe("nusIS5451Plantsense-system_sensor_data")
 	mqtt.subscribe("nusIS5451Plantsense-last_watered")
 
 
 def onMessage(client, userdata, msg):
+	print(str(msg))
 	print(str(msg.payload.decode("utf-8")))
-	data = json.loads(str(msg.payload.decode("utf-8")))
+	print(str(msg.topic))
+	data = json.loads(msg.payload.decode("utf-8"))
 	print(str(data))
 	
 	if msg.topic.split("-")[1] == "sensor_data":
@@ -30,8 +32,11 @@ def onMessage(client, userdata, msg):
   
 	if msg.topic.split("-")[1] == "last_watered":
 		conn = mongo_dba("plant_data").update_last_watered(data)
-     
-     
+  
+	if msg.topic.split("-")[1] == "plant_info":
+		conn = mongo_dba("plant_info").update_plant_info(data)
+	 
+	 
 
 mqtt = mqttClient.Client()
 mqtt.on_connect = onConnect

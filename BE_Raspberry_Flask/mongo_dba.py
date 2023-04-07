@@ -8,12 +8,12 @@ class mongo_dba:
         self.con = MongoClient(self.host, self.port)
         self.db = self.con.plantsense
         
-        if collection == "sensor_values":
-            self.col = self.db.sensor_values
-        if collection == "plant_data":
-            self.col = self.db.plant_data
-        if collection == "watering_system":
-            self.col = self.db.watering_system
+        if collection == "plant_sensor_data":
+            self.col = self.db.plant_sensor_data
+        if collection == "plant_info":
+            self.col = self.db.plant_info
+        if collection == "system_sensor_data":
+            self.col = self.db.system_sensor_data
 
     def get_last_sensor_values(self):
         output = self.col.find_one(sort=[( '_id', DESCENDING )])
@@ -36,9 +36,31 @@ class mongo_dba:
             return None
     
     def update_last_watered(self, data):
-       self.col.plant_data.update_one(
-        {'plant_node_id': data.plant_node_id},
-        {'$push': {'watering_history': data.timestamp}}
-        )
+        find = self.col.find_one({'plant_node_id': data['plant_node_id']})
+        
+        if find == None:
+            output = self.col.insert_one({'plant_node_id': data['plant_node_id'],
+                                          'watering_history': [data['timestamp']]})
+        else:
+            output = self.col.update_one(
+                {'plant_node_id': data['plant_node_id']},
+                {'$push': {'watering_history': data['timestamp']}}
+            )
+        
+        print(str(output))
+        
+    def update_plant_info(self, data):
+        find = self.col.find_one({'plant_node_id': data['plant_node_id']})
+
+        if find == None:
+            output = self.col.insert_one(data)
+        else:
+            output = self.col.update_one(
+                {'plant_node_id': data['plant_node_id']},
+                {'$push': {'watering_history': data['timestamp']}}
+            )
+
+        print(str(output))
+        
         
     
