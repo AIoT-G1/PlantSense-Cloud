@@ -14,7 +14,7 @@ mqtt = None
 #   Init MQTT Client   #
 def onConnect(client, userdata, flags, rc):
 	# MQTT topics to subscribe
-	mqtt.subscribe("nusIS5451Plantsense-global_sensor_data")
+	mqtt.subscribe("nusIS5451Plantsense-sensor_data")
 	mqtt.subscribe("nusIS5451Plantsense-plant_disease")
 	mqtt.subscribe("nusIS5451Plantsense-watering_system")
 
