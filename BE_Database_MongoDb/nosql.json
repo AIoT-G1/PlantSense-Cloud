@@ -1,29 +1,21 @@
 {
-  "water_tank_data": {
-    "items": [{
+  "system": {
+    "RNG": {
       "_id": 0,
       "timestamp": 0,
-      "level": 0
-    }, 
-    {
-      "_id": 1,
-      "timestamp": 0,
-      "level": 0
+      "water_level": 0,
+      "temp": 0,
+      "humidity": 0,
+      "last_time_watered": 0
     }
-  ]},
+  },
   "plant_data": {
     "random_generate": {
+      "_id": 0,
       "plant_node_id": "serial",
       "name": "plant 1",
       "description": "",
-      "disease": {
-        "ID1": {
-          "name": ""
-        },
-        "ID2": {
-          "name": ""
-        }
-      },
+      "disease": "",
       "type": "",
       "photo_url": "",
       "watering_history": {
@@ -33,33 +25,31 @@
       }
     },
     "random_generate": {
-      "name": "plant 2",
+      "_id": 0,
+      "plant_node_id": "serial",
+      "name": "plant 1",
       "description": "",
-      "disease": {
-        "ID1": {
-          "name": ""
-        },
-        "ID2": {
-          "name": ""
-        }
-      },
+      "disease": "",
       "type": "",
-      "photo_url": ""
-    },
+      "photo_url": "",
+      "watering_history": {
+        "random": "timestamp",
+        "random": "timestamp",
+        "random": "timestamp"
+      },
     "random_generate": {
-      "name": "plant n",
+      "_id": 0,
+      "plant_node_id": "serial",
+      "name": "plant 1",
       "description": "",
-      "disease": {
-        "ID1": {
-          "name": ""
-        },
-        "ID2": {
-          "name": ""
-        }
-      },
+      "disease": "",
       "type": "",
-      "photo_url": ""
-    }
+      "photo_url": "",
+      "watering_history": [{
+        "timestamp": ""
+
+      },
+    ]
   },
   "sensor_data": {
     "RANDOM_GENERATED_NOSQL_ID_X": {
