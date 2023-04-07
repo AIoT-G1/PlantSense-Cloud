@@ -17,6 +17,7 @@ def onConnect(client, userdata, flags, rc):
 	mqtt.subscribe("nusIS5451Plantsense-sensor_data")
 	mqtt.subscribe("nusIS5451Plantsense-plant_disease")
 	mqtt.subscribe("nusIS5451Plantsense-watering_system")
+	mqtt.subscribe("nusIS5451Plantsense-last_watered")
 
 
 def onMessage(client, userdata, msg):
@@ -24,9 +25,11 @@ def onMessage(client, userdata, msg):
 	data = json.loads(str(msg.payload.decode("utf-8")))
 	print(str(data))
 	
-	# retrieve topic and send to the collection
-	conn = mongo_dba(msg.topic.split("-")[1])
-	conn.post_data(data)
+	if msg.topic.split("-")[1] == "sensor_data":
+		conn = mongo_dba("sensor_data").post_data(data)
+  
+	if msg.topic.split("-")[1] == "last_watered":
+		conn = mongo_dba("plant_data").update_last_watered(data)
      
      
 

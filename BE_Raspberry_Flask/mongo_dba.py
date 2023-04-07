@@ -34,3 +34,11 @@ class mongo_dba:
             return dataset
         else:
             return None
+    
+    def update_last_watered(self, data):
+       self.col.plant_data.update_one(
+        {'plant_node_id': data.plant_node_id},
+        {'$push': {'watering_history': data.timestamp}}
+        )
+        
+    
