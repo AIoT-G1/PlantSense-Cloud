@@ -63,36 +63,43 @@
   },
   "sensor_data": {
     "RANDOM_GENERATED_NOSQL_ID_X": {
-      "plant_node_id": "serialnumber",
-      "type": "plant_node_data",
       "timestamp": 0,
-      "temp": 0,
+      "timestamp_short": 0,
+      "type": "plant_node_data",
+      "plant_node_id": "serialnumber",
       "moisture": 0,
       "light": 0,
+      "temp": 0,
       "humidity": 0
     },
     "RANDOM_GENERATED_NOSQL_ID_00001": {
-      "plant_node_id": "serialnumber",
       "timestamp": 0,
-      "temp": 0,
+      "timestamp_short": 0,
+      "type": "plant_node_data",
+      "plant_node_id": "serialnumber",
       "moisture": 0,
       "light": 0,
+      "temp": 0,
       "humidity": 0
     },
     "RANDOM_GENERATED_NOSQL_ID_00002": {
-      "plant_node_id": "serialnumber",
       "timestamp": 0,
-      "temp": 0,
+      "timestamp_short": 0,
+      "type": "plant_node_data",
+      "plant_node_id": "serialnumber",
       "moisture": 0,
       "light": 0,
+      "temp": 0,
       "humidity": 0
     },
     "RANDOM_GENERATED_NOSQL_ID_00003": {
-      "plant_node_id": "serialnumber",
       "timestamp": 0,
-      "temp": 0,
+      "timestamp_short": 0,
+      "type": "plant_node_data",
+      "plant_node_id": "serialnumber",
       "moisture": 0,
       "light": 0,
+      "temp": 0,
       "humidity": 0
     }
   }
