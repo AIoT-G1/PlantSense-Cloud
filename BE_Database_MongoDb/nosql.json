@@ -12,7 +12,8 @@
     }
   ]},
   "plant_data": {
-    "MAC_addr_1": {
+    "random_generate": {
+      "plant_node_id": "serial",
       "name": "plant 1",
       "description": "",
       "disease": {
@@ -24,9 +25,14 @@
         }
       },
       "type": "",
-      "photo_url": ""
+      "photo_url": "",
+      "watering_history": {
+        "random": "timestamp",
+        "random": "timestamp",
+        "random": "timestamp"
+      }
     },
-    "MAC_addr_2": {
+    "random_generate": {
       "name": "plant 2",
       "description": "",
       "disease": {
@@ -40,7 +46,7 @@
       "type": "",
       "photo_url": ""
     },
-    "MAC_addr_n": {
+    "random_generate": {
       "name": "plant n",
       "description": "",
       "disease": {
@@ -57,7 +63,8 @@
   },
   "sensor_data": {
     "RANDOM_GENERATED_NOSQL_ID_X": {
-      "addr": "MAC_addr_1",
+      "plant_node_id": "serialnumber",
+      "type": "plant_node_data",
       "timestamp": 0,
       "temp": 0,
       "moisture": 0,
@@ -65,7 +72,7 @@
       "humidity": 0
     },
     "RANDOM_GENERATED_NOSQL_ID_00001": {
-      "addr": "MAC_addr_1",
+      "plant_node_id": "serialnumber",
       "timestamp": 0,
       "temp": 0,
       "moisture": 0,
@@ -73,7 +80,7 @@
       "humidity": 0
     },
     "RANDOM_GENERATED_NOSQL_ID_00002": {
-      "addr": "MAC_addr_1",
+      "plant_node_id": "serialnumber",
       "timestamp": 0,
       "temp": 0,
       "moisture": 0,
@@ -81,7 +88,7 @@
       "humidity": 0
     },
     "RANDOM_GENERATED_NOSQL_ID_00003": {
-      "addr": "MAC_addr_2",
+      "plant_node_id": "serialnumber",
       "timestamp": 0,
       "temp": 0,
       "moisture": 0,
