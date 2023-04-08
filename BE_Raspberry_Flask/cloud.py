@@ -68,14 +68,17 @@ mqtt.loop_start()
 
 @app.route('/sensor_values', methods=['GET'])
 def get_sensor_values():
-	return mongo_dba("sensor_values").get_last_sensor_values()
+	return json.dumps(mongo_dba("sensor_values").get_last_sensor_values())
 
-@app.route('/plant_data', methods=['GET'])
+@app.route('/plants_info', methods=['GET'])
 def get_plant_data():
-	return mongo_dba("plant_info").get_all_plant_info()
+	return json.dumps(mongo_dba("plant_info").get_all_plant_info())
 
 @app.route('/camera', methods=['GET'])
 def get_camera_picture():
 	return "camera picture here"
 
+@app.route('/water_tank', methods=['GET'])
+def get_water_tank_level():
+    return json.dumps(mongo_dba("water_tank").get_water_tank_level())
 app.run()

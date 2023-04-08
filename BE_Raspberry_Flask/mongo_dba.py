@@ -17,7 +17,6 @@ class mongo_dba:
         if collection == "water_tank":
             self.col = self.db.water_tank
 
-
 # Collection Fx --> Plant sensor data
     def get_last_sensor_values(self):
         output = self.col.find_one(sort=[( '_id', DESCENDING )])
@@ -35,9 +34,9 @@ class mongo_dba:
 
 # Collection Fx --> Plant information
     def get_all_plant_info(self):
-        dataset = self.col.find({})
+        dataset = self.col.find({}, {'_id':0})
         if dataset:
-            return dataset
+            return list(dataset)
         else:
             return None
     
@@ -91,14 +90,22 @@ class mongo_dba:
         print(str(output))
         
     def get_water_tank_level(self):
-        output = self.col.find_one({})
+        output = self.col.find_one({}, {'_id': 0})
         if output:
-            res = output
-            print(res)
-            res['_id'] = str(res['_id'])
-            return res
+            #res = output
+            #print(res)
+            #res['_id'] = str(res['_id'])
+            return output
+            return self.format_response(res)
         else:
             return None
+        
+# UTILS ->  Response formatter
+    def format_response(self, data):
+        for value in data:
+            if(isinstance(data[value], str)==False):
+                data[value]=str(data[value])
+        return data
         
         
         
