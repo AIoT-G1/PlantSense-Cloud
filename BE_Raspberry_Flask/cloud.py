@@ -60,7 +60,6 @@ mqtt.on_connect = onConnect
 mqtt.on_message = onMessage
 
 mqtt.tls_set(ca_certs="certs/mosquitto.org.crt", certfile="certs/client.crt", keyfile="certs/client.key", tls_version=ssl.PROTOCOL_TLSv1_2)
-#mqtt.username_pw_set(username="rw", password="readwrite")
 mqtt.connect("test.mosquitto.org", 8883)
 mqtt.loop_start()
 

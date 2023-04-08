@@ -1,0 +1,21 @@
+MQTT ::::: TOPICS & ACTIONS
+
+Cloud relay --> Cloud app
+
+- nusIS5451Plantsense-plant_sensor_data
+    Available actions:
+        - Doesn't need field 'action'
+
+- nusIS5451Plantsense-plant_info
+    Available actions:
+        - update_plant --> requires ('plant_node_id', 'name', ... ,'watering_history': [])
+        - update_last_watered --> requires ('plant_node_id', 'timestamp')
+
+- nusIS5451Plantsense-weather
+    Available actions:
+        - predict --> requires ('timestamp', 'temp', 'humidity')
+        - add_weather_data --> requires ('timestamp', 'temp', 'humidity')
+
+- nusIS5451Plantsense-water_tank
+    Available actions:
+        - Doesn't need field 'action'

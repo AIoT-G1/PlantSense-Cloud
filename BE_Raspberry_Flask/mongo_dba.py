@@ -90,7 +90,7 @@ class mongo_dba:
 
         print(str(output))
         
-    def water_tank_level(self):
+    def get_water_tank_level(self):
         output = self.col.find_one({})
         if output:
             res = output
