@@ -1,9 +1,13 @@
 {
-  "system": {
+  "water_tank":{
+    "_id": 0,
+    "level": 0
+  },
+
+  "weather": {
     "RNG": {
       "_id": 0,
-      "timestamp": 0,
-      "water_level": 0,
+      "timestamp": "",
       "temp": 0,
       "humidity": 0
     }

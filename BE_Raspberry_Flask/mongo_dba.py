@@ -12,11 +12,13 @@ class mongo_dba:
             self.col = self.db.plant_sensor_data
         if collection == "plant_info":
             self.col = self.db.plant_info
-        if collection == "system_sensor_data":
-            self.col = self.db.system_sensor_data
-        if collection == "last_watered":
-            self.col = self.db.last_watered
+        if collection == "weather":
+            self.col = self.db.weather
+        if collection == "water_tank":
+            self.col = self.db.water_tank
 
+
+# Collection Fx --> Plant sensor data
     def get_last_sensor_values(self):
         output = self.col.find_one(sort=[( '_id', DESCENDING )])
         if output:
@@ -27,10 +29,12 @@ class mongo_dba:
         else:
             return None
 
-    def post_data(self, data):
+    def add_plant_sensor_data(self, data):
         self.col.insert_one(data)
 
-    def get_all_data(self):
+
+# Collection Fx --> Plant information
+    def get_all_plant_info(self):
         dataset = self.col.find({})
         if dataset:
             return dataset
@@ -66,12 +70,35 @@ class mongo_dba:
             )
 
         print(str(output))
-        
-    def update_system_data(self, data):
+
+# Collection Fx --> Weather 
+    def add_weather_data(self, data):
+        self.col.insert_one(data)
+
+
+# Collection Fx --> Water tank    
+    def update_water_tank(self, data):
         print(data)
-        output = self.col.insert_one(data)
+        find = self.col.find_one({})
+
+        if find == None:
+            output = self.col.insert_one(data)
+        else:
+            output = self.col.update_one(
+            {},{'$set': data}, upsert=True
+            )
 
         print(str(output))
+        
+    def water_tank_level(self):
+        output = self.col.find_one({})
+        if output:
+            res = output
+            print(res)
+            res['_id'] = str(res['_id'])
+            return res
+        else:
+            return None
         
         
         

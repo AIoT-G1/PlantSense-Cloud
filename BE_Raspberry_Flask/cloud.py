@@ -16,25 +16,42 @@ def onConnect(client, userdata, flags, rc):
 	# MQTT topics to subscribe
 	mqtt.subscribe("nusIS5451Plantsense-plant_sensor_data")
 	mqtt.subscribe("nusIS5451Plantsense-plant_info")
-	mqtt.subscribe("nusIS5451Plantsense-system_sensor_data")
-	mqtt.subscribe("nusIS5451Plantsense-last_watered")
+	mqtt.subscribe("nusIS5451Plantsense-weather")
+	mqtt.subscribe("nusIS5451Plantsense-water_tank")
 
 
 def onMessage(client, userdata, msg):
 	print(str(msg.payload.decode("utf-8")))
 	data = json.loads(msg.payload.decode("utf-8"))
 	
+	# Plant sensor data (timestamp, moisture, light, plant_node_id...)
 	if msg.topic.split("-")[1] == "plant_sensor_data":
-		conn = mongo_dba("plant_sensor_data").post_data(data)
+		conn = mongo_dba("plant_sensor_data").add_plant_sensor_data(data)
   
-	if msg.topic.split("-")[1] == "last_watered":
-		conn = mongo_dba("plant_info").update_last_watered(data)
-  
+	# Plant information (node_id, , name, desc, disease, last_watered...)
 	if msg.topic.split("-")[1] == "plant_info":
-		conn = mongo_dba("plant_info").update_plant_info(data)
+     
+		if data['action'] == "update_plant":
+			conn = mongo_dba("plant_info").update_plant_info(data)
+   
+		if data['action'] == "update_last_watered":
+			conn = mongo_dba("plant_info").update_last_watered(data)
   
-	if msg.topic.split("-")[1] == "system_sensor_data":
-		conn = mongo_dba("system_sensor_data").update_system_data(data)
+	# Weather conditions (timestamp, temp, humidity)
+	if msg.topic.split("-")[1] == "weather":
+     
+		if data['action'] == "predict":
+			# Predict rain :) -------------------- REVIEW THIS
+			pass
+			mqtt.publish("nusIS5451Plantsense-prediction", str(json.dumps(
+			{"result": "YES/NO"}))) # ------------ REVIEW THIS
+   
+		if data['action'] == "add_weather_data":
+			conn = mongo_dba("weather").add_weather_data(data)
+   
+	# Water tank level (level)
+	if msg.topic.split("-")[1] == "water_tank":
+			conn = mongo_dba("water_tank").update_water_tank(data)
 	 
 	 
 
@@ -56,7 +73,7 @@ def get_sensor_values():
 
 @app.route('/plant_data', methods=['GET'])
 def get_plant_data():
-	return mongo_dba("plant_data").get_all_data()
+	return mongo_dba("plant_info").get_all_plant_info()
 
 @app.route('/camera', methods=['GET'])
 def get_camera_picture():
