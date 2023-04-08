@@ -92,11 +92,7 @@ class mongo_dba:
     def get_water_tank_level(self):
         output = self.col.find_one({}, {'_id': 0})
         if output:
-            #res = output
-            #print(res)
-            #res['_id'] = str(res['_id'])
             return output
-            return self.format_response(res)
         else:
             return None
         

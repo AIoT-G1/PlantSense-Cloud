@@ -21,7 +21,6 @@ def onConnect(client, userdata, flags, rc):
 
 
 def onMessage(client, userdata, msg):
-	print(str(msg.payload.decode("utf-8")))
 	data = json.loads(msg.payload.decode("utf-8"))
 	
 	# Plant sensor data (timestamp, moisture, light, plant_node_id...)
