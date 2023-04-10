@@ -47,7 +47,7 @@ def onMessage(client, userdata, msg):
 
 			# Test output (yes)
 			mqtt.publish("nusIS5451Plantsense-prediction", str(json.dumps(
-			{"result": "yes"}))) # ------------ REVIEW THIS
+			{"rain_result": "yes"}))) # ------------ REVIEW THIS
    
    			# Test output (no)
 			#mqtt.publish("nusIS5451Plantsense-prediction", str(json.dumps(
@@ -59,6 +59,7 @@ def onMessage(client, userdata, msg):
 	# Water tank level (level)
 	if msg.topic.split("-")[1] == "water_tank":
 			conn = mongo_dba("water_tank").update_water_tank(data)
+			
 	 
 	 
 

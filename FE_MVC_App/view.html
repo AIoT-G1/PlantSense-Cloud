@@ -90,7 +90,7 @@
 				<!-- Plant-info and buggy video stream -->
 				<div class="row">
 					<!-- Carrousell with plant info -->
-					<div class="col-md-8">
+					<div class="col-md-8" style="display: flex;align-items: center; justify-content: center">
 						<div class="card full-height">
 							<div class="card-header">
 								<div class="card-head-row">
@@ -100,7 +100,58 @@
 							<div class="card-body">
 								<div class="row">
 									<div class="col-md-6">
-
+										<div class="card full-height">
+											<div class=" card-header" style="display: flex;align-items: center; justify-content: center">
+												<button id= "PlantDetailPictureButton" class="btn btn-primary btn-round" onclick="onPlantDetailPictureButtonClick()"> Real view </button>
+											</div>
+											<div class=" card-body" style="display: flex;align-items: center; justify-content: center">
+												<img id = "PlantDetailPicture" src="assets/img/plant_sense_icon.ico">
+											</div>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="row" height = 50%>
+											<div class="card full-height">
+												<table class="table table-striped" width=100%>
+													<tbody>
+														<tr>
+															<th>Name</th>
+															<td>My super tomato plant</td>
+														</tr>
+														<tr>
+															<th>Description</th>
+															<td>This description can be as large as you want but please don't tell too much things, just be brief thanks</td>
+														</tr>
+														<tr>
+															<th>Last watered</th>
+															<td>23-06-1995 13:29</td>
+														</tr>
+														<tr>
+															<th>Disease</th>
+															<td>No 1</td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+										</div>
+										<div class="row" height = 50%>
+											<div class="card full-height">
+												<div class="row mt-9">
+													<div class="col-md-4">
+														<div class="card full-height">
+															<div class="card-body">
+																<div class="d-flex flex-wrap justify-content-around pb-2 pt-4">
+																	<div class="px-2 pb-2 pb-md-0 text-center">
+																		<div id="circles-4"></div>
+																		<h4 class="fw-bold mt-3 mb-0">Temperature (ºC)</h4>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>

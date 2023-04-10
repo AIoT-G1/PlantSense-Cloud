@@ -1,4 +1,5 @@
 var data = ""
+var current_plant_node_id = ""
 
 function init() {
     
@@ -9,7 +10,7 @@ function init() {
         display_weather_values();
 
         // Display 2nd box
-        display_plant_info_section
+        display_plant_detail_picture_user()
 
 
     }
@@ -69,4 +70,32 @@ function display_weather_values() {
         styleWrapper: true,
         styleText: true
     });
+}
+
+
+// Plant detail picture
+function onPlantDetailPictureButtonClick() {
+    if (document.getElementById("PlantDetailPictureButton").className == "btn btn-primary btn-round"){
+        display_plant_detail_picture_real();
+    } else {
+        display_plant_detail_picture_user();
+    }
+
+}
+
+function display_plant_detail_picture_real() {
+    document.getElementById("PlantDetailPictureButton").className = "btn btn-primary btn-border btn-round";
+    p_b64 = ""
+    for (var plant in data['plants_info']) {
+        if (plant['plant_node_id'] == current_plant_node_id) {
+            p_b64 = plant['photo_url']
+        }
+    }
+
+    // Display 
+}
+
+function display_plant_detail_picture_user() {
+    document.getElementById("PlantDetailPictureButton").className = "btn btn-primary btn-round";
+    document.getElementById("PlantDetailPictureButton").src = "asset/img/plant_sense_icon";
 }
