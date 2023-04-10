@@ -38,24 +38,20 @@ function getHttpPlantData() {
     return data;
 }
 
-
-// POST
-function postHttpEventMessage(data){
-    my_events = ""
+function getHttpAll() {
+    var data = null;
     $.ajax({
-        url : url + '/events',
-        type : 'POST',
-        data: {'data': JSON.stringify(data)},
+        url: url + '/all',
+        type: 'GET',
         async: false,
-        crossDomain:true,
-        'success' : function(response) {
-            my_events = JSON.parse(response);
-            console.log("Event triggered successfully")
+        crossDomain: true,
+        'success': function (response) {
+            data = JSON.parse(response);
         },
-        'error' : function(request,error)
-        {
-            console.log("Event trigger failed")
+        'error': function (request, error) {
+            console.log("Request: " + JSON.stringify(request));
         }
     });
-    return my_events;
+
+    return data;
 }

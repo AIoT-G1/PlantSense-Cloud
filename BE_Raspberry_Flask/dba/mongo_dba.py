@@ -19,12 +19,9 @@ class mongo_dba:
 
 # Collection Fx --> Plant sensor data
     def get_last_sensor_values(self):
-        output = self.col.find_one(sort=[( '_id', DESCENDING )])
+        output = self.col.find_one(sort=[( '_id', DESCENDING )], projection ={'_id': 0, 'action': 0})
         if output:
-            res = output
-            print(res)
-            res['_id'] = str(res['_id'])
-            return res
+            return output
         else:
             return None
 
@@ -34,7 +31,7 @@ class mongo_dba:
 
 # Collection Fx --> Plant information
     def get_all_plant_info(self):
-        dataset = self.col.find({}, {'_id':0})
+        dataset = self.col.find({}, {'_id':0, 'action': 0})
         if dataset:
             return list(dataset)
         else:
@@ -73,6 +70,13 @@ class mongo_dba:
 # Collection Fx --> Weather 
     def add_weather_data(self, data):
         self.col.insert_one(data)
+        
+    def get_last_weather_data(self):
+        output = self.col.find_one(sort=[( '_id', DESCENDING )], projection ={'_id': 0, 'action': 0})
+        if output:
+            return output
+        else:
+            return None
 
 
 # Collection Fx --> Water tank    
@@ -90,7 +94,7 @@ class mongo_dba:
         print(str(output))
         
     def get_water_tank_level(self):
-        output = self.col.find_one({}, {'_id': 0})
+        output = self.col.find_one({}, {'_id': 0, 'action': 0})
         if output:
             return output
         else:

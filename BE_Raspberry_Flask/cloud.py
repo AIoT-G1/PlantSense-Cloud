@@ -1,8 +1,9 @@
+import ssl
 from flask import Flask, request, jsonify, json
 from flask_cors import CORS
 from paho.mqtt import client as mqttClient
-from mongo_dba import mongo_dba
-import ssl
+from dba.mongo_dba import mongo_dba
+from ml.rain_predictor import rain_predictor
 
 #   Init Flask Server   #
 app = Flask(__name__)
@@ -29,7 +30,7 @@ def onMessage(client, userdata, msg):
   
 	# Plant information (node_id, , name, desc, disease, last_watered...)
 	if msg.topic.split("-")[1] == "plant_info":
-     
+	 
 		if data['action'] == "update_plant":
 			conn = mongo_dba("plant_info").update_plant_info(data)
    
@@ -38,12 +39,11 @@ def onMessage(client, userdata, msg):
   
 	# Weather conditions (timestamp, temp, humidity)
 	if msg.topic.split("-")[1] == "weather":
-     
+	  
 		if data['action'] == "predict":
-			# Predict rain :) -------------------- REVIEW THIS
-			pass
+			pred = rain_predictor().predict(data['temp'], data['humidity']) 
 			mqtt.publish("nusIS5451Plantsense-prediction", str(json.dumps(
-			{"result": "YES/NO"}))) # ------------ REVIEW THIS
+			{"result": str(pred)}))) # ------------ REVIEW THIS
    
 		if data['action'] == "add_weather_data":
 			conn = mongo_dba("weather").add_weather_data(data)
@@ -64,10 +64,22 @@ mqtt.loop_start()
 
 
 #   Server API   #
+@app.route('/all', methods=['GET'])
+def get_all():
+	sensor_values = mongo_dba("plant_sensor_data").get_last_sensor_values()
+	tank_level = mongo_dba("water_tank").get_water_tank_level()
+	weather = mongo_dba("weather").get_last_weather_data()
+	plants = mongo_dba("plant_info").get_all_plant_info()
+ 
+	return json.dumps({"plant_sensor_data": sensor_values, "water_tank": tank_level, "weather": weather, "plants_info": plants})
 
 @app.route('/sensor_values', methods=['GET'])
 def get_sensor_values():
-	return json.dumps(mongo_dba("sensor_values").get_last_sensor_values())
+	sensor_values = mongo_dba("plant_sensor_data").get_last_sensor_values()
+	tank_level = mongo_dba("water_tank").get_water_tank_level()
+	weather = mongo_dba("weather").get_last_weather_data()
+ 
+	return json.dumps({"plant_sensor_data": sensor_values, "water_tank": tank_level, "weather": weather})
 
 @app.route('/plants_info', methods=['GET'])
 def get_plant_data():
@@ -79,5 +91,5 @@ def get_camera_picture():
 
 @app.route('/water_tank', methods=['GET'])
 def get_water_tank_level():
-    return json.dumps(mongo_dba("water_tank").get_water_tank_level())
+	return json.dumps(mongo_dba("water_tank").get_water_tank_level())
 app.run()
