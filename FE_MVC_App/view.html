@@ -33,28 +33,29 @@
 <!-- BODY -->
 
 <body onload="init()">
-	<div class="main-header">
+	<div class="main-header" style="background-color: rgb(116, 189, 116);">
 		<!-- Header -->
-		<nav class="navbar navbar-header navbar-expand-lg" data-background-color="white" style="margin-bottom: 15px">
-			<img id="logo" width = 30% height = auto src= "assets/img/plant_sense_logo.ico"
-                alt="PlantSense">
+		<nav class="navbar navbar-header navbar-expand-lg" data-background-color= "grey" style="margin-bottom: 15px">
+			<img id="logo" width = 15% height = 40% src= "assets/img/plant_sense_logo.ico"
+            style = "border-radius: 10%; margin-top: 15px; border-style: solid;"
+			alt="PlantSense">
 		</nav>
 		<!-- End Navbar -->
 
 		<!-- Page content -->
-		<div class="content">
+		<div class="content" style="margin-top:  50px;">
 	
 			<div class="page-inner mt--5">
 	
 				<!-- Environment sensor data -->
-				<div class="row mt--2" style="margin-top: 50px">
+				<div class="row mt--2">
 					<div class="col-md-4">
-						<div class="card full-height" style="background-color: gray;">
+						<div class="card full-height">
 							<div class="card-body">
 								<div class="d-flex flex-wrap justify-content-around pb-2 pt-4">
 									<div class="px-2 pb-2 pb-md-0 text-center">
 										<div id="circles-1"></div>
-										<h6 class="fw-bold mt-3 mb-0">Temperature (ºC)</h6>
+										<h4 class="fw-bold mt-3 mb-0">Temperature (ºC)</h4>
 									</div>
 								</div>
 							</div>
@@ -66,7 +67,7 @@
 								<div class="d-flex flex-wrap justify-content-around pb-2 pt-4">
 									<div class="px-2 pb-2 pb-md-0 text-center">
 										<div id="circles-2"></div>
-										<h6 class="fw-bold mt-3 mb-0">Humdity (%)</h6>
+										<h4 class="fw-bold mt-3 mb-0">Humidity (%)</h4>
 									</div>
 								</div>
 							</div>
@@ -78,13 +79,57 @@
 								<div class="d-flex flex-wrap justify-content-around pb-2 pt-4">
 									<div class="px-2 pb-2 pb-md-0 text-center">
 										<div id="circles-3"></div>
-										<h6 class="fw-bold mt-3 mb-0">Water Level (%)</h6>
+										<h4 class="fw-bold mt-3 mb-0">Water Level (%)</h4>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
+				
+				<!-- Plant-info and buggy video stream -->
+				<div class="row">
+					<!-- Carrousell with plant info -->
+					<div class="col-md-8">
+						<div class="card full-height">
+							<div class="card-header">
+								<div class="card-head-row">
+									<div id= "plant_name" class="card-title">Plant details</div>
+								</div>
+							</div>
+							<div class="card-body">
+								<div class="row">
+									<div class="col-md-6">
+
+									</div>
+								</div>
+							</div>
+							<nav aria-label="Page navigation example">
+								<ul class="pagination justify-content-center">
+									<li class="page-item disabled">
+										<a class="page-link" href="#" tabindex="-1">Previous</a>
+									</li>
+									<li class="page-item"><a class="page-link" href="#">1</a></li>
+									<li class="page-item">
+										<a class="page-link" href="#">Next</a>
+									</li>
+								</ul>
+							</nav>
+						</div>
+					</div>
+	
+					<!-- Video stream -->
+					<div class="col-md-4">
+						<div class="card full-height">
+							<div class="card-header">
+								<div class="card-title">Live Streaming</div>
+								<!--<div class="card-category">March 25 - April 02</div>-->
+							</div>
+							<div class="card-body pb-0" id="live-streaming-body">
+							</div>
+						</div>
+					</div>
+
 			</div>
 		</div>
 

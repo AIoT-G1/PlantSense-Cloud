@@ -5,9 +5,13 @@ function init() {
     // Load data from backend
     data = getHttpAll();
     if (data) {
-
-        // Display 1st box
+        // Display 1st row
         display_weather_values();
+
+        // Display 2nd box
+        display_plant_info_section
+
+
     }
 }
 
@@ -20,7 +24,7 @@ function display_weather_values() {
         value: temp,
         maxValue: 55,
         minValue: 0,
-        width: 7,
+        width: 11,
         text: temp,
         colors: ['#eee', '#ab0505'],
         duration: 400,
@@ -38,7 +42,7 @@ function display_weather_values() {
         value: humid,
         maxValue: 100,
         minValue: 0,
-        width: 7,
+        width: 11,
         text: humid,
         colors: ['#eee', '#177dff'],
         duration: 400,

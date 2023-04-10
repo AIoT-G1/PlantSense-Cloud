@@ -41,9 +41,17 @@ def onMessage(client, userdata, msg):
 	if msg.topic.split("-")[1] == "weather":
 	  
 		if data['action'] == "predict":
-			pred = rain_predictor().predict(data['temp'], data['humidity']) 
+			# pred = rain_predictor().predict(data['temp'], data['humidity']) 
+			#mqtt.publish("nusIS5451Plantsense-prediction", str(json.dumps(
+			#{"result": str(pred)}))) # ------------ REVIEW THIS
+
+			# Test output (yes)
 			mqtt.publish("nusIS5451Plantsense-prediction", str(json.dumps(
-			{"result": str(pred)}))) # ------------ REVIEW THIS
+			{"result": "yes"}))) # ------------ REVIEW THIS
+   
+   			# Test output (no)
+			#mqtt.publish("nusIS5451Plantsense-prediction", str(json.dumps(
+			#{"result": "no"}))) # ------------ REVIEW THIS
    
 		if data['action'] == "add_weather_data":
 			conn = mongo_dba("weather").add_weather_data(data)
