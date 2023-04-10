@@ -21,7 +21,7 @@ def onConnect(client, userdata, flags, rc):
 
 
 def onMessage(client, userdata, msg):
-	data = json.loads(msg.payload.decode("utf-8"))
+	data = json.loads(msg.payload.decode("utf-8").replace("'", "\""))
 	
 	# Plant sensor data (timestamp, moisture, light, plant_node_id...)
 	if msg.topic.split("-")[1] == "plant_sensor_data":
