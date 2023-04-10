@@ -55,7 +55,7 @@
 								<div class="d-flex flex-wrap justify-content-around pb-2 pt-4">
 									<div class="px-2 pb-2 pb-md-0 text-center">
 										<div id="circles-1"></div>
-										<h4 class="fw-bold mt-3 mb-0">Temperature (ºC)</h4>
+										<h4 class="fw-bold mt-3 mb-0">Temperature</h4>
 									</div>
 								</div>
 							</div>
@@ -67,7 +67,7 @@
 								<div class="d-flex flex-wrap justify-content-around pb-2 pt-4">
 									<div class="px-2 pb-2 pb-md-0 text-center">
 										<div id="circles-2"></div>
-										<h4 class="fw-bold mt-3 mb-0">Humidity (%)</h4>
+										<h4 class="fw-bold mt-3 mb-0">Humidty</h4>
 									</div>
 								</div>
 							</div>
@@ -79,7 +79,7 @@
 								<div class="d-flex flex-wrap justify-content-around pb-2 pt-4">
 									<div class="px-2 pb-2 pb-md-0 text-center">
 										<div id="circles-3"></div>
-										<h4 class="fw-bold mt-3 mb-0">Water Level (%)</h4>
+										<h4 class="fw-bold mt-3 mb-0">Water level</h4>
 									</div>
 								</div>
 							</div>
@@ -98,7 +98,7 @@
 								</div>
 							</div>
 							<div class="card-body">
-								<div class="row">
+								<div class="row mt--2">
 									<div class="col-md-6">
 										<div class="card full-height">
 											<div class=" card-header" style="display: flex;align-items: center; justify-content: center">
@@ -112,43 +112,83 @@
 									<div class="col-md-6">
 										<div class="row" height = 50%>
 											<div class="card full-height">
-												<table class="table table-striped" width=100%>
-													<tbody>
-														<tr>
-															<th>Name</th>
-															<td>My super tomato plant</td>
-														</tr>
-														<tr>
-															<th>Description</th>
-															<td>This description can be as large as you want but please don't tell too much things, just be brief thanks</td>
-														</tr>
-														<tr>
-															<th>Last watered</th>
-															<td>23-06-1995 13:29</td>
-														</tr>
-														<tr>
-															<th>Disease</th>
-															<td>No 1</td>
-														</tr>
-													</tbody>
-												</table>
+												<div class="card-header">
+													<div class="card-head-row">
+														<div id= "plant_name" class="card-title">About</div>
+													</div>
+												</div>
+												<div class="card-body">
+													<table class="table table-striped" width=100%>
+														<tbody>
+															<tr>
+																<th>Name</th>
+																<td id="curr_plant_name"></td>
+															</tr>
+															<tr>
+																<th>Description</th>
+																<td id="curr_plant_desc"></td>
+															</tr>
+															<tr>
+																<th>Last watered</th>
+																<td id="curr_plant_last_wat"></td>
+															</tr>
+															<tr>
+																<th>Disease</th>
+																<td id="curr_plant_disease"></td>
+															</tr>
+														</tbody>
+													</table>		
+												</div>
 											</div>
 										</div>
 										<div class="row" height = 50%>
-											<div class="card full-height">
-												<div class="row mt-9">
-													<div class="col-md-4">
-														<div class="card full-height">
-															<div class="card-body">
-																<div class="d-flex flex-wrap justify-content-around pb-2 pt-4">
-																	<div class="px-2 pb-2 pb-md-0 text-center">
-																		<div id="circles-4"></div>
-																		<h4 class="fw-bold mt-3 mb-0">Temperature (ºC)</h4>
+											<div class="card full-height full-width">
+												<div class="card-header">
+													<div class="card-head-row">
+														<div id= "plant_name" class="card-title">Measured conditions</div>
+													</div>
+												</div>
+												<div class="card-body">
+													<div class="row" height = 50%>
+														<div class="col-md-6" width =  style="display: flex;align-items: center; justify-content: center">
+															<div class="card full-height" style="display: flex;align-items: center; justify-content: center">
+																<div class="card-body">
+																	<div class="d-flex flex-wrap justify-content-around pb-2 pt-4">
+																		<div class="px-2 pb-2 pb-md-0 text-center">
+																			<div id="circles-4"></div>
+																			<h4 class="fw-bold mt-3 mb-0">Health</h4>
+																		</div>
 																	</div>
 																</div>
 															</div>
 														</div>
 													</div>
+													<div class = "row" height = 50%>
+														<div class = "col-md-6">
+															<div class="card full-height">
+																<div class="card-body">
+																	<div class="d-flex flex-wrap justify-content-around pb-2 pt-4">
+																		<div class="px-2 pb-2 pb-md-0 text-center">
+																			<div id="circles-5"></div>
+																			<h4 class="fw-bold mt-3 mb-0">Moisture</h4>
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+														<div class = "col-md-6">
+															<div class="card full-height">
+																<div class="card-body">
+																	<div class="d-flex flex-wrap justify-content-around pb-2 pt-4">
+																		<div class="px-2 pb-2 pb-md-0 text-center">
+																			<div id="circles-6"></div>
+																			<h4 class="fw-bold mt-3 mb-0">Light</h4>
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>		
 												</div>
 											</div>
 										</div>
