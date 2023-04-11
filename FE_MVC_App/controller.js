@@ -33,34 +33,48 @@ function init() {
 
 // Load data
 function load_current_plant() {
+    debugger;
     if (data["plants_info"][current_plant_idx].hasOwnProperty("plant_node_id")) {
         current_plant["node_id"] = data["plants_info"][current_plant_idx]['plant_node_id']
+    } else {
+        
     }
     if (data["plants_info"][current_plant_idx].hasOwnProperty("name")) {
         current_plant["name"] = data["plants_info"][current_plant_idx]['name']
+    } else {
+        current_plant["name"] = "None"
     }
     if (data["plants_info"][current_plant_idx].hasOwnProperty("description")) {
         current_plant["description"] = data["plants_info"][current_plant_idx]['description']
     }
+    else {
+        current_plant["description"] = "None"
+    }
     if (data["plants_info"][current_plant_idx].hasOwnProperty("disease")) {
         current_plant["disease"] = data["plants_info"][current_plant_idx]['disease']
+    } else {
+        current_plant["disease"] = "Unknown"
     }
     if (data["plants_info"][current_plant_idx].hasOwnProperty("breed")) {
         current_plant["breed"] = data["plants_info"][current_plant_idx]['breed']
-    }   
+    } else {
+        current_plant["breed"] = "Unknown"
+    } 
     if (data["plants_info"][current_plant_idx].hasOwnProperty("water_history")) {
         if (data["plants_info"][current_plant_idx]['water_history'].length == 0) {
             current_plant['water_history'] = data["plants_info"][current_plant_idx]['water_history']
         }
+    } else {
+        current_plant['water_history'] = "Never"
     }
     if (data["plants_info"][0].hasOwnProperty("photo_url")) {
         current_plant["photo_url"] = data["plants_info"][current_plant_idx]['photo_url']
-    } 
+    }
 
-    for (var plant in data['plant_sensor_data']) {
-        if (plant['plant_node_id'] == current_plant['node_id']) {
-            current_plant['moisture'] = plant['moisture'];
-            current_plant['light'] = plant['light'];
+    for (var i = 0; i < data['plant_sensor_data'].length; i++){
+        if (data['plant_sensor_data'][i]['plant_node_id'] == current_plant['node_id']) {
+            current_plant['moisture'] = data['plant_sensor_data'][i]['moisture'];
+            current_plant['light'] = data['plant_sensor_data'][i]['light'];
         }
     }
 }
@@ -212,7 +226,7 @@ function display_plant_detail_information() {
 
     if (current_plant.hasOwnProperty("water_history")) { 
         if (current_plant["water_history"].length > 0) {
-            last_rec = data["water_history"].length -1
+            last_rec = current_plant["water_history"].length - 1;
             document.getElementById("curr_plant_last_wat").innerText = current_plant['water_history'][last_rec]
         }
         else {
@@ -222,7 +236,7 @@ function display_plant_detail_information() {
 }
 
 function display_plant_detail_status() {
-    var disease = "no";
+    var disease = "No";
     var moisture = null;
     var light = null; 
     for (var plant in data['plants_info']) {
@@ -236,35 +250,6 @@ function display_plant_detail_status() {
             moisture = values['moisture']
             light = values['light']
         }
-    }
-
-    // Health
-    if (disease == "no") {
-        Circles.create({
-            id: 'circles-4',
-            radius: 25,
-            value: 1,
-            maxValue: 1,
-            minValue: 0,
-            width: 45,
-            colors: ['#eee', '#ab0505'],
-            duration: 400,
-            wrpClass: 'circles-wrp',
-            styleWrapper: true,
-        });
-    } else {
-        Circles.create({
-            id: 'circles-4',
-            radius: 25,
-            value: 0,
-            maxValue: 1,
-            minValue: 0,
-            width: 45,
-            colors: ['#eee', '#ab0505'],
-            duration: 400,
-            wrpClass: 'circles-wrp',
-            styleWrapper: true,
-        });
     }
 
     // Moisture
@@ -306,7 +291,7 @@ function onPlantDetailNavigationPreviousClick() {
     if (current_plant_idx > 0) {
         current_plant_idx = current_plant_idx-1
         load_current_plant()
-        document.getElementById("current-plant-nav-index").innerHTML(current_plant_idx + 1)   
+        document.getElementById("current-plant-nav-index").innerHTML = current_plant_idx + 1   
     }
 }
 
@@ -314,6 +299,7 @@ function onPlantDetailNavigationNextClick() {
     if (current_plant_idx < data['plants_info'].length - 1) {
         current_plant_idx = current_plant_idx+1
         load_current_plant()
-        document.getElementById("current-plant-nav-index").innerHTML(current_plant_idx + 1)     
+        document.getElementById("current-plant-nav-index").innerHTML = current_plant_idx + 1 
+        display_plant_detail_information()
     }
 }

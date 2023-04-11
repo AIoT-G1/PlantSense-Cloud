@@ -84,11 +84,38 @@
 			</div>
 		</div>
 
+		<div class="row mt--2" style="margin-top: 15px;">
+			<div class="col" style=" margin-left: 15px; width: 25%">
+				<div class="card full-height">
+					<div class="card-body">
+						<div class="d-flex flex-wrap justify-content-around pb-2 pt-4">
+							<div class="px-2 pb-2 pb-md-0 text-center">
+								<div id="circles-5"></div>
+								<h4 class="fw-bold mt-3 mb-0">Moisture</h4>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col" style="margin-right: 15px; width: 25%">
+				<div class="card full-height">
+					<div class="card-body">
+						<div class="d-flex flex-wrap justify-content-around pb-2 pt-4">
+							<div class="px-2 pb-2 pb-md-0 text-center">
+								<div id="circles-6"></div>
+								<h4 class="fw-bold mt-3 mb-0">Light</h4>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
 		<!-- Plant-info and buggy video stream -->
 		<div class="row" style="margin-right: 15px; margin-left: 15px; height: 50%; justify-content: center;">
 			<!-- Carrousell with plant info -->
-			<div style="width: 60%">
-				<div class="card">
+			<div style="width: 60%;">
+				<div class="card" style="height:100%">
 					<div class="card-header">
 						<div class="card-head-row">
 							<div id="plant_name" class="card-title">Plant details</div>
@@ -120,95 +147,77 @@
 							</div>
 						</div>
 						<div class="col" style="width: auto; margin-right: 15px; margin-top: 15px;">
-							<div class="row" height=50%>
-								<div class="card" width="50px">
-									<div class="card-header">
-										<div class="card-head-row">
-											<div id="plant_name" class="card-title">About</div>
-										</div>
-									</div>
-									<div>
-										<table class="table table-striped mb-4" style="width: 200px">
-											<tbody>
-												<tr>
-													<th>Node ID</th>
-													<td id="curr_plant_nodeID"></td>
-													<td> </td>
-													<td> </td>
-													<td> </td>
-													<td> </td>
-													<td> </td>
-													<td> </td>
-												</tr>
-												<tr>
-													<th>Name</th>
-													<td id="curr_plant_name"></td>
-													<td> </td>
-													<td> </td>
-													<td> </td>
-													<td> </td>
-													<td> </td>
-													<td> </td>
-												</tr>
-												<tr>
-													<th>Description</th>
-													<td id="curr_plant_desc"></td>
-													<td> </td>
-													<td> </td>
-													<td> </td>
-													<td> </td>
-													<td> </td>
-													<td> </td>
-												</tr>
-												<tr>
-													<th>Breed</th>
-													<td id="curr_plant_breed"></td>
-													<td> </td>
-													<td> </td>
-													<td> </td>
-													<td> </td>
-													<td> </td>
-													<td> </td>
-												</tr>
-												<tr>
-													<th>Last watered</th>
-													<td id="curr_plant_last_wat"></td>
-													<td> </td>
-													<td> </td>
-													<td> </td>
-													<td> </td>
-													<td> </td>
-													<td> </td>
-												</tr>
-												<tr>
-													<th>Disease</th>
-													<td id="curr_plant_disease"></td>
-													<td> </td>
-													<td> </td>
-													<td> </td>
-													<td> </td>
-													<td> </td>
-													<td> </td>
-												</tr>
-											</tbody>
-										</table>
+							<div class="card" width="50px">
+								<div class="card-header">
+									<div class="card-head-row">
+										<div id="plant_name" class="card-title">About</div>
 									</div>
 								</div>
-							</div>
-							<div>
-								<div style="margin-left: 15px; margin-top: 15px; align-content: center;">
-									<div class = "col" style="align-content: center;">
-										<div class="px-2 pb-2 pb-md-0">
-											<div id="circles-5"></div>
-											<h4 class="fw-bold mt-3 mb-0">Moisture</h4>
-										</div>
-									</div>
-									<div class = "col" style="align-content: right;">
-										<div class="px-2 pb-2 pb-md-0">
-											<div id="circles-6"></div>
-											<h4 class="fw-bold mt-3 mb-0">Light</h4>
-										</div>
-									</div>
+								<div>
+									<table class="table table-striped mb-4" style="width: 200px">
+										<tbody>
+											<tr>
+												<th>Node ID</th>
+												<td id="curr_plant_nodeID"></td>
+												<td> </td>
+												<td> </td>
+												<td> </td>
+												<td> </td>
+												<td> </td>
+												<td> </td>
+											</tr>
+											<tr>
+												<th>Name</th>
+												<td id="curr_plant_name"></td>
+												<td> </td>
+												<td> </td>
+												<td> </td>
+												<td> </td>
+												<td> </td>
+												<td> </td>
+											</tr>
+											<tr>
+												<th>Description</th>
+												<td id="curr_plant_desc"></td>
+												<td> </td>
+												<td> </td>
+												<td> </td>
+												<td> </td>
+												<td> </td>
+												<td> </td>
+											</tr>
+											<tr>
+												<th>Breed</th>
+												<td id="curr_plant_breed"></td>
+												<td> </td>
+												<td> </td>
+												<td> </td>
+												<td> </td>
+												<td> </td>
+												<td> </td>
+											</tr>
+											<tr>
+												<th>Last watered</th>
+												<td id="curr_plant_last_wat"></td>
+												<td> </td>
+												<td> </td>
+												<td> </td>
+												<td> </td>
+												<td> </td>
+												<td> </td>
+											</tr>
+											<tr>
+												<th>Disease</th>
+												<td id="curr_plant_disease"></td>
+												<td> </td>
+												<td> </td>
+												<td> </td>
+												<td> </td>
+												<td> </td>
+												<td> </td>
+											</tr>
+										</tbody>
+									</table>
 								</div>
 							</div>
 						</div>
@@ -230,60 +239,59 @@
 
 			<!-- Video stream -->
 			<div style="width: 30%; height: 500px; margin-left: 40px;">
-				<div class="card full-height">
+				<div class="card" style="height: 100%;">
 					<div class="card-header">
 						<div class="card-title">Live Streaming</div>
 						<!--<div class="card-category">March 25 - April 02</div>-->
 					</div>
-					<div class="card-body pb-1" id="live-streaming-body" style="align-content: center;">
-						<img style="width: 100%; border-style: solid" src="assets/img/under_development.png"
+					<div class="card-body pb-1" id="live-streaming-body" style="align-content: center; vertical-align:middle;">
+						<img style="width: 100%; border-style: solid" src="assets/img/under_development.png">
+					</div>
+				</div>
+
+			</div>
+
+			<!-- Modal windows -->
+			<div id="update-plant-info-modal" class="modal" tabindex="-1" role="dialog">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title">Plant Information</h5>
+						</div>
+						<div class="modal-body">
+							<div class="form-group">
+								<label for="update-plant-nodeID">Node ID</label>
+								<input type="text" class="form-control input-square" id="update-plant-nodeId"
+									placeholder="Your Microbit node ID">
+							</div>
+							<div class="form-group">
+								<label for="update-plant-name">Name</label>
+								<input type="text" class="form-control input-square" id="update-plant-name"
+									placeholder="Name">
+							</div>
+							<div class="form-group">
+								<label for="update-plant-desc">Description</label>
+								<input type="text" class="form-control input-square" id="update-plant-desc"
+									placeholder="Description">
+							</div>
+
+							<div class="form-group">
+								<label for="update-plant-breed">Breed</label>
+								<select class="form-control input-square" id="update-plant-breed">
+									<option>Green bean</option>
+									<option>Tomato</option>
+								</select>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-primary" data-dismiss="modal"
+								onclick="onSavePlantInformationModalButtonClick()">Save changes</button>
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+						</div>
 					</div>
 				</div>
 			</div>
-
 		</div>
-
-		<!-- Modal windows -->
-		<div id="update-plant-info-modal" class="modal" tabindex="-1" role="dialog">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title">Plant Information</h5>
-					</div>
-					<div class="modal-body">
-						<div class="form-group">
-							<label for="update-plant-nodeID">Node ID</label>
-							<input type="text" class="form-control input-square" id="update-plant-nodeId"
-								placeholder="Your Microbit node ID">
-						</div>
-						<div class="form-group">
-							<label for="update-plant-name">Name</label>
-							<input type="text" class="form-control input-square" id="update-plant-name"
-								placeholder="Name">
-						</div>
-						<div class="form-group">
-							<label for="update-plant-desc">Description</label>
-							<input type="text" class="form-control input-square" id="update-plant-desc"
-								placeholder="Description">
-						</div>
-
-						<div class="form-group">
-							<label for="update-plant-breed">Breed</label>
-							<select class="form-control input-square" id="update-plant-breed">
-								<option>Green bean</option>
-								<option>Tomato</option>
-							</select>
-						</div>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-primary" data-dismiss="modal"
-							onclick="onSavePlantInformationModalButtonClick()">Save changes</button>
-						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
 </body>
 <footer>
 	<!--   Core JS Files   -->

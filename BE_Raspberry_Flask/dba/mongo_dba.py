@@ -19,14 +19,25 @@ class mongo_dba:
 
 # Collection Fx --> Plant sensor data
     def get_last_sensor_values(self):
-        output = self.col.find_one(sort=[( '_id', DESCENDING )], projection ={'_id': 0, 'action': 0})
-        if output:
-            return output
+        dataset = self.col.find({}, {'_id':0, 'action': 0})
+        if dataset:
+            return list(dataset)
         else:
             return None
 
     def add_plant_sensor_data(self, data):
-        self.col.insert_one(data)
+        print(data)
+        find = self.col.find_one({'plant_node_id': data['plant_node_id']})
+
+        if find == None:
+            output = self.col.insert_one(data)
+        else:
+            output = self.col.update_one(
+                {'plant_node_id': data['plant_node_id']},
+                {'$set': data}, upsert=True
+            )
+
+        print(str(output))
 
 
 # Collection Fx --> Plant information
