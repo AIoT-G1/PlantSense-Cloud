@@ -9,10 +9,14 @@ from ml.rain_predictor import rain_predictor
 #Email
 from flask_mail import Mail,  Message
 
+import socket
+
 #   Init Flask Server   #
 app = Flask(__name__)
 CORS(app)
 app.config["DEBUG"] = False
+
+host_addr = "172.25.104.45"
 
 mqtt = None 
 
@@ -71,16 +75,7 @@ def onMessage(client, userdata, msg):
 			pred = rain_predictor().predict(data['temp'], data['humidity'])
 			print(pred)
 			mqtt.publish("nusIS5451Plantsense-prediction", str(json.dumps(
-			{"result": pred}))) # ------------ REVIEW THIS
-
-			# Test output (yes)
-			#print("rain prediction triggered")
-			#mqtt.publish("nusIS5451Plantsense-prediction", str(json.dumps(
-			#{"rain_result": "yes"}))) # ------------ REVIEW THIS
-   
-   			# Test output (no)
-			#mqtt.publish("nusIS5451Plantsense-prediction", str(json.dumps(
-			#{"result": "no"}))) # ------------ REVIEW THIS
+			{"result": pred})))
    
 		if data['action'] == "add_weather_data":
 			conn = mongo_dba("weather").add_weather_data(data)
@@ -205,4 +200,8 @@ def send_mail_disease():
 	# end if
 # end def
 
+# Other members to run local
 app.run(host = "127.0.0.1", port = "5000")
+
+# Jaume's main server
+# app.run(host=host_addr, port = "5000")
