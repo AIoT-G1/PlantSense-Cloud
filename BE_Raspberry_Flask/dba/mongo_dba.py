@@ -87,7 +87,7 @@ class mongo_dba:
         else:
             output = self.col.update_one(
                 {'plant_node_id': data['plant_node_id']},
-                {'$set': data}, upsert=True
+                {'$set': data}
             )
 
         print(str(output))

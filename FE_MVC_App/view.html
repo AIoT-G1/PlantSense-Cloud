@@ -35,7 +35,7 @@
 
 <body onload="init()">
 
-	<div style="background-color: rgb(116, 189, 116);">
+	<div style="background-color: rgb(71, 117, 71);">
 		<!-- Header -->
 		<div data-background-color="grey" style="margin-bottom: 15px; margin-top: 15px">
 			<img id="logo" width=15% height=40% src="assets/img/plant_sense_logo.ico"
@@ -45,14 +45,14 @@
 		</div>
 		<!-- Page content -->
 		<!-- Environment sensor data -->
-		<div class="row mt--2" style="margin-top: 15px;">
+		<div class="row mt--2" style="margin-top: 15px; align-content: center; align-items: center;">
 			<div class="col" style="margin-left: 15px; width: 25%;">
 				<div class="card full-height">
 					<div class="card-body">
-						<div class="d-flex flex-wrap justify-content-around pb-2 pt-4">
+						<div class="d-flex flex-wrap justify-content-around pb-1 pt-1">
 							<div class="px-2 pb-2 pb-md-0 text-center">
 								<div id="circles-1"></div>
-								<h4 class="fw-bold mt-3 mb-0">Temperature</h4>
+								<h4 class="fw-bold mt-3 mb-0">Temperature (ºC)</h4>
 							</div>
 						</div>
 					</div>
@@ -61,22 +61,22 @@
 			<div class="col" style="width: 25%">
 				<div class="card full-height">
 					<div class="card-body">
-						<div class="d-flex flex-wrap justify-content-around pb-2 pt-4">
+						<div class="d-flex flex-wrap justify-content-around pb-1 pt-1">
 							<div class="px-2 pb-2 pb-md-0 text-center">
 								<div id="circles-2"></div>
-								<h4 class="fw-bold mt-3 mb-0">Humidty</h4>
+								<h4 class="fw-bold mt-3 mb-0">Humidty (%)</h4>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-			<div class="col" style="margin-right: 15px; width: 25%;">
+			<div class="col" style="margin-right: 15px; width: 10%;">
 				<div class="card full-height">
 					<div class="card-body">
-						<div class="d-flex flex-wrap justify-content-around pb-2 pt-4">
+						<div class="d-flex flex-wrap justify-content-around pb-1 pt-1">
 							<div class="px-2 pb-2 pb-md-0 text-center">
 								<div id="circles-3"></div>
-								<h4 class="fw-bold mt-3 mb-0">Water level</h4>
+								<h4 class="fw-bold mt-3 mb-0">Water level (%)</h4>
 							</div>
 						</div>
 					</div>
@@ -85,10 +85,10 @@
 		</div>
 
 		<div class="row mt--2" style="margin-top: 15px;">
-			<div class="col" style=" margin-left: 15px; width: 25%">
+			<div class="col" style=" margin-left: 15px; width: 10%">
 				<div class="card full-height">
 					<div class="card-body">
-						<div class="d-flex flex-wrap justify-content-around pb-2 pt-4">
+						<div class="d-flex flex-wrap justify-content-around pb-1 pt-1">
 							<div class="px-2 pb-2 pb-md-0 text-center">
 								<div id="circles-5"></div>
 								<h4 class="fw-bold mt-3 mb-0">Moisture</h4>
@@ -97,10 +97,10 @@
 					</div>
 				</div>
 			</div>
-			<div class="col" style="margin-right: 15px; width: 25%">
+			<div class="col" style="margin-right: 15px; width: 10%">
 				<div class="card full-height">
 					<div class="card-body">
-						<div class="d-flex flex-wrap justify-content-around pb-2 pt-4">
+						<div class="d-flex flex-wrap justify-content-around pb-1 pt-1">
 							<div class="px-2 pb-2 pb-md-0 text-center">
 								<div id="circles-6"></div>
 								<h4 class="fw-bold mt-3 mb-0">Light</h4>
@@ -228,7 +228,7 @@
 								<a class="page-link" href="#" tabindex="-1"
 									onclick="onPlantDetailNavigationPreviousClick()">Previous</a>
 							</li>
-							<li class="page-item" id="current-plant-nav-index"></li>
+							<li class="page-item"><a class="page-link" href="#" id="current-plant-nav-index">1</a></li>
 							<li class="page-item">
 								<a class="page-link" href="#" onclick="onPlantDetailNavigationNextClick()">Next</a>
 							</li>

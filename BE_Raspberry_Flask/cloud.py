@@ -19,6 +19,7 @@ app.config["DEBUG"] = False
 host_addr = "192.168.0.101"
 
 mqtt = None 
+picture_url = []
 
 #   Init MQTT Client   #
 def onConnect(client, userdata, flags, rc):
@@ -45,6 +46,25 @@ mail = Mail(app)
 # from teleflask.messages import TextMessage
 
 # python3 -m teleflask.proxy --https api_key=6189463418:AAGvNioYlyqk8jxPQsBBQRHbRFoJRIhksN8 host=127.0.0.1 port=5000
+def manage_image_chunks(data):
+	if data['action'] == "update_last_image_1":
+		picture_url= []
+		picture_url.append(data['photo_url'])
+
+	if data['action'] == "update_last_image_2" or data['action'] == "update_last_image_3" or data['action'] == "update_last_image_4":
+		picture_url.append(data['photo_url'])
+
+	if data['action'] == "update_last_image_5":
+		print(str(data))
+		url = ""
+		picture_url.append(data['photo_url'])
+  
+		for photo in picture_url:
+			url += photo
+
+		data['photo_url'] = url
+		print(url)
+		conn = mongo_dba("plant_info").update_last_image(data, 2)
 
 def onMessage(client, userdata, msg):
 	print(str(msg.payload.decode("utf-8")))
@@ -66,15 +86,8 @@ def onMessage(client, userdata, msg):
    
 		if data['action'] == "update_last_image_1":
 			print(str(data))
-			conn = mongo_dba("plant_info").update_last_image(data, 0)
+			manage_image_chunks(data)
    
-		if data['action'] == "update_last_image_2":
-			print(str(data))
-			conn = mongo_dba("plant_info").update_last_image(data, 1)
-   
-		if data['action'] == "update_last_image_3":
-			print(str(data))
-			conn = mongo_dba("plant_info").update_last_image(data, 2)
   
 	# Weather conditions (timestamp, temp, humidity)
 	if msg.topic.split("-")[1] == "weather":
@@ -209,7 +222,7 @@ def send_mail_disease():
 # end def
 
 # Other members to run local
-app.run(host = "127.0.0.1", port = "5000")
+app.run(host = host_addr, port = "5000")
 
 # Jaume's main server
 # app.run(host=host_addr, port = "5000")
