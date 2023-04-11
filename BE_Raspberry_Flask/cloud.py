@@ -23,6 +23,7 @@ def onConnect(client, userdata, flags, rc):
 
 def onMessage(client, userdata, msg):
 	data = json.loads(msg.payload.decode("utf-8").replace("'", "\""))
+	print("MQTT on message! ")
 	
 	# Plant sensor data (timestamp, moisture, light, plant_node_id...)
 	if msg.topic.split("-")[1] == "plant_sensor_data":
@@ -41,13 +42,14 @@ def onMessage(client, userdata, msg):
 	if msg.topic.split("-")[1] == "weather":
 	  
 		if data['action'] == "predict":
-			# pred = rain_predictor().predict(data['temp'], data['humidity']) 
-			#mqtt.publish("nusIS5451Plantsense-prediction", str(json.dumps(
-			#{"result": str(pred)}))) # ------------ REVIEW THIS
+			pred = rain_predictor().predict(data['temp'], data['humidity']) 
+			mqtt.publish("nusIS5451Plantsense-prediction", str(json.dumps(
+			{"result": pred}))) # ------------ REVIEW THIS
 
 			# Test output (yes)
-			mqtt.publish("nusIS5451Plantsense-prediction", str(json.dumps(
-			{"rain_result": "yes"}))) # ------------ REVIEW THIS
+			#print("rain prediction triggered")
+			#mqtt.publish("nusIS5451Plantsense-prediction", str(json.dumps(
+			#{"rain_result": "yes"}))) # ------------ REVIEW THIS
    
    			# Test output (no)
 			#mqtt.publish("nusIS5451Plantsense-prediction", str(json.dumps(
@@ -101,4 +103,18 @@ def get_camera_picture():
 @app.route('/water_tank', methods=['GET'])
 def get_water_tank_level():
 	return json.dumps(mongo_dba("water_tank").get_water_tank_level())
+
+
+@app.route('/plant_info', methods=['POST'])
+def update_pant_info():
+	data = request.form['data']
+	data = json.loads(data)
+	print(str(data))
+	res = mongo_dba("plant_info").update_plant_info(data)
+ 
+	return str(res)
+
+
+
+
 app.run()

@@ -6,7 +6,7 @@ function init() {
     
     // Load data from backend
     data = getHttpAll();
-    load_current_plant()
+    load_current_plant();
 
     if (data) {
         // Display 1st row
@@ -21,15 +21,34 @@ function init() {
     }
 }
 
+// Load data
 function load_current_plant() {
-    current_plant = {
-        "node_id": data["plants_info"][0]['plant_node_id'],
-        "name": data["plants_info"][0]['name'],
-        "description": data["plants_info"][0]['description'],
-        "disease": data["plants_info"][0]['disease'],
-        "moisture": 0,
-        "light": 0,
-        "last_watered": "yesterday"
+    if (data["plants_info"][0].hasOwnProperty("breed")) {
+        current_plant = {
+            "node_id": data["plants_info"][0]['plant_node_id'],
+            "name": data["plants_info"][0]['name'],
+            "description": data["plants_info"][0]['description'],
+            "disease": data["plants_info"][0]['disease'],
+            "breed": data["plants_info"][0]['breed'],
+            "moisture": 0,
+            "light": 0,
+            "water_history": "yesterday"
+        }
+    }    
+    else {
+        current_plant = {
+            "node_id": data["plants_info"][0]['plant_node_id'],
+            "name": data["plants_info"][0]['name'],
+            "description": data["plants_info"][0]['description'],
+            "disease": data["plants_info"][0]['disease'],
+            "breed": "None",
+            "moisture": 0,
+            "light": 0,
+            "water_history" : "Never"
+        }
+        if (data["plants_info"][0]['water_history'].length == 0) {
+            current_plant['water_history'] = data["plants_info"][0]['water_history'][0]
+        }
     }
 
     for (var plant in data['plant_sensor_data']) {
@@ -38,6 +57,47 @@ function load_current_plant() {
             current_plant['light'] = plant['light'];
         }
     }
+}
+
+
+// Add / Edit
+function onAddPlantButtonClick() {
+    $("#update-plant-nodeId").val("");
+    $("#update-plant-name").val("");
+    $("#update-plant-desc").val("");
+    $("#update-plant-breed").val("");
+}
+
+function onEditPlantButtonClick(){
+    $("#update-plant-nodeId").val(current_plant['node_id']);
+    $("#update-plant-name").val(current_plant['name']);
+    $("#update-plant-desc").val(current_plant['description']);
+    $("#update-plant-breed").val(current_plant['breed']);
+}
+
+function onSavePlantInformationModalButtonClick(){
+    let node_id = $("#update-plant-nodeId").val();
+    let name = $("#update-plant-name").val();
+    let desc = $("#update-plant-desc").val();
+    let breed = $("#update-plant-breed").val();
+
+    debugger;
+    plant_data = {
+        "plant_node_id": node_id,
+        "name": name,
+        "description": desc,
+        "breed": breed,
+        "disease": "no"
+    }
+    postHttpPlantInformation(plant_data);
+    data = getHttpAll();
+    load_current_plant();
+
+    $("#update-plant-nodeId").val("");
+    $("#update-plant-name").val("");
+    $("#update-plant-desc").val("");
+    $("#update-plant-breed").val("");
+
 }
 
 function display_weather_values() {
@@ -125,7 +185,19 @@ function display_plant_detail_picture_user() {
 }
 
 function display_plant_detail_information() {
-    document.getElementById("curr_plant_name").innerHTML = 
+    debugger;
+    $("#curr_plant_nodeID").val(current_plant['node_id']);
+    $("#curr_plant_name").val(current_plant['name']);
+    $("#curr_plant_des").val(current_plant['description']);
+    $("#curr_plant_breed").val(current_plant['breed']);
+    $("#curr_plant_disease").val(current_plant['disease']);
+
+    if (data["plants_info"][0].hasOwnProperty("water_history")) { 
+        if (data["water_history"].length > 0) {
+            last_rec = data["water_history"].length -1
+            $("#curr_plant_last_wat").val(current_plant['water_history'][last_rec]);
+        }
+    }
 }
 
 function display_plant_detail_status() {

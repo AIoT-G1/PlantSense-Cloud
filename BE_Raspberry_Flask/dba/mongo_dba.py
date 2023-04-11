@@ -69,6 +69,7 @@ class mongo_dba:
 
 # Collection Fx --> Weather 
     def add_weather_data(self, data):
+        print(data)
         self.col.insert_one(data)
         
     def get_last_weather_data(self):

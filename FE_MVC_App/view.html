@@ -41,10 +41,9 @@
 			alt="PlantSense">
 		</nav>
 		<!-- End Navbar -->
-
+	</div>
 		<!-- Page content -->
-		<div class="content" style="margin-top:  50px;">
-	
+	<div class="content" style="margin-top:  50px;">	
 			<div class="page-inner mt--5">
 	
 				<!-- Environment sensor data -->
@@ -96,6 +95,12 @@
 								<div class="card-head-row">
 									<div id= "plant_name" class="card-title">Plant details</div>
 								</div>
+								<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#update-plant-info-modal" onclick="onEditPlantButtonClick()">
+									Edit
+								</button>
+								<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#update-plant-info-modal">
+									New
+								</button>
 							</div>
 							<div class="card-body">
 								<div class="row mt--2">
@@ -121,12 +126,20 @@
 													<table class="table table-striped" width=100%>
 														<tbody>
 															<tr>
+																<th>Node ID</th>
+																<td id="curr_plant_nodeID"></td>
+															</tr>
+															<tr>
 																<th>Name</th>
 																<td id="curr_plant_name"></td>
 															</tr>
 															<tr>
 																<th>Description</th>
 																<td id="curr_plant_desc"></td>
+															</tr>
+															<tr>
+																<th>Breed</th>
+																<td id="curr_plant_breed"></td>
 															</tr>
 															<tr>
 																<th>Last watered</th>
@@ -149,46 +162,42 @@
 													</div>
 												</div>
 												<div class="card-body">
-													<div class="row" height = 50%>
-														<div class="col-md-6" width =  style="display: flex;align-items: center; justify-content: center">
-															<div class="card full-height" style="display: flex;align-items: center; justify-content: center">
-																<div class="card-body">
-																	<div class="d-flex flex-wrap justify-content-around pb-2 pt-4">
-																		<div class="px-2 pb-2 pb-md-0 text-center">
-																			<div id="circles-4"></div>
-																			<h4 class="fw-bold mt-3 mb-0">Health</h4>
-																		</div>
+													<div class="col-md-6" width =  style="display: flex;align-items: center; justify-content: center">
+														<div class="card full-height" style="display: flex;align-items: center; justify-content: center">
+															<div class="card-body">
+																<div class="d-flex flex-wrap justify-content-around pb-2 pt-4">
+																	<div class="px-2 pb-2 pb-md-0 text-center">
+																		<div id="circles-4"></div>
+																		<h4 class="fw-bold mt-3 mb-0">Health</h4>
 																	</div>
 																</div>
 															</div>
 														</div>
 													</div>
-													<div class = "row" height = 50%>
-														<div class = "col-md-6">
-															<div class="card full-height">
-																<div class="card-body">
-																	<div class="d-flex flex-wrap justify-content-around pb-2 pt-4">
-																		<div class="px-2 pb-2 pb-md-0 text-center">
-																			<div id="circles-5"></div>
-																			<h4 class="fw-bold mt-3 mb-0">Moisture</h4>
-																		</div>
+													<div class = "col-md-6">
+														<div class="card full-height">
+															<div class="card-body">
+																<div class="d-flex flex-wrap justify-content-around pb-2 pt-4">
+																	<div class="px-2 pb-2 pb-md-0 text-center">
+																		<div id="circles-5"></div>
+																		<h4 class="fw-bold mt-3 mb-0">Moisture</h4>
 																	</div>
 																</div>
 															</div>
 														</div>
-														<div class = "col-md-6">
-															<div class="card full-height">
-																<div class="card-body">
-																	<div class="d-flex flex-wrap justify-content-around pb-2 pt-4">
-																		<div class="px-2 pb-2 pb-md-0 text-center">
-																			<div id="circles-6"></div>
-																			<h4 class="fw-bold mt-3 mb-0">Light</h4>
-																		</div>
+													</div>
+													<div class = "col-md-6">
+														<div class="card full-height">
+															<div class="card-body">
+																<div class="d-flex flex-wrap justify-content-around pb-2 pt-4">
+																	<div class="px-2 pb-2 pb-md-0 text-center">
+																		<div id="circles-6"></div>
+																		<h4 class="fw-bold mt-3 mb-0">Light</h4>
 																	</div>
 																</div>
 															</div>
 														</div>
-													</div>		
+													</div>
 												</div>
 											</div>
 										</div>
@@ -223,11 +232,82 @@
 
 			</div>
 		</div>
+	</div>
 
+	<!-- Modal windows -->
+	<div id = "update-plant-info-modal" class="modal" tabindex="-1" role="dialog">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Plant Information</h5>
+				</div>
+				<div class="modal-body">
+					<div class="form-group">
+						<label for="update-plant-nodeID">Node ID</label>
+						<input type="text" class="form-control input-square" id="update-plant-nodeId" placeholder="Your Microbit node ID">
+					</div>
+					<div class="form-group">
+						<label for="update-plant-name">Name</label>
+						<input type="text" class="form-control input-square" id="update-plant-name" placeholder="Name">
+					</div>
+					<div class="form-group">
+						<label for="update-plant-desc">Description</label>
+						<input type="text" class="form-control input-square" id="update-plant-desc" placeholder="Description">
+					</div>
+					
+					<div class="form-group">
+						<label for="update-plant-breed">Breed</label>
+						<select class="form-control input-square" id="update-plant-breed">
+							<option>Green bean</option>
+							<option>Tomato</option>
+						</select>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" data-dismiss="modal" onclick="onSavePlantInformationModalButtonClick()">Save changes</button>
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
 	</div>
 </body>
 <footer>
+	<!--   Core JS Files   -->
+	<script src="assets/js/core/jquery.3.2.1.min.js"></script>
+	<script src="assets/js/core/popper.min.js"></script>
+	<script src="assets/js/core/bootstrap.min.js"></script>
+
+	<!-- jQuery UI -->
+	<script src="assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
+	<script src="assets/js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js"></script>
+
+	<!-- jQuery Scrollbar -->
+	<script src="assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+
+
+	<!-- Chart JS -->
+	<script src="assets/js/plugin/chart.js/chart.min.js"></script>
+
+	<!-- jQuery Sparkline -->
+	<script src="assets/js/plugin/jquery.sparkline/jquery.sparkline.min.js"></script>
+
 	<!-- Chart Circle -->
 	<script src="assets/js/plugin/chart-circle/circles.min.js"></script>
+
+	<!-- Datatables -->
+	<script src="assets/js/plugin/datatables/datatables.min.js"></script>
+
+	<!-- Bootstrap Notify -->
+	<script src="assets/js/plugin/bootstrap-notify/bootstrap-notify.min.js"></script>
+
+	<!-- jQuery Vector Maps -->
+	<script src="assets/js/plugin/jqvmap/jquery.vmap.min.js"></script>
+	<script src="assets/js/plugin/jqvmap/maps/jquery.vmap.world.js"></script>
+
+	<!-- Sweet Alert -->
+	<script src="assets/js/plugin/sweetalert/sweetalert.min.js"></script>
+
+	<!-- Atlantis JS -->
+	<script src="assets/js/atlantis.min.js"></script>
 </footer>
 </html>
