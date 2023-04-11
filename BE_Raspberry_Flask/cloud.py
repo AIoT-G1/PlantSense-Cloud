@@ -16,7 +16,7 @@ app = Flask(__name__)
 CORS(app)
 app.config["DEBUG"] = False
 
-host_addr = "172.25.104.45"
+host_addr = "192.168.0.101"
 
 mqtt = None 
 
@@ -64,9 +64,17 @@ def onMessage(client, userdata, msg):
 		if data['action'] == "update_last_watered":
 			conn = mongo_dba("plant_info").update_last_watered(data)
    
-		if data['action'] == "update_last_image":
+		if data['action'] == "update_last_image_1":
 			print(str(data))
-			conn = mongo_dba("plant_info").update_last_image(data)
+			conn = mongo_dba("plant_info").update_last_image(data, 0)
+   
+		if data['action'] == "update_last_image_2":
+			print(str(data))
+			conn = mongo_dba("plant_info").update_last_image(data, 1)
+   
+		if data['action'] == "update_last_image_3":
+			print(str(data))
+			conn = mongo_dba("plant_info").update_last_image(data, 2)
   
 	# Weather conditions (timestamp, temp, humidity)
 	if msg.topic.split("-")[1] == "weather":
@@ -75,7 +83,7 @@ def onMessage(client, userdata, msg):
 			pred = rain_predictor().predict(data['temp'], data['humidity'])
 			print(pred)
 			mqtt.publish("nusIS5451Plantsense-prediction", str(json.dumps(
-			{"result": pred})))
+			{"result": pred}))) # ------------ REVIEW THIS
    
 		if data['action'] == "add_weather_data":
 			conn = mongo_dba("weather").add_weather_data(data)
