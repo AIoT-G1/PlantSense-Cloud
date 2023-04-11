@@ -13,7 +13,7 @@ class rain_predictor:
             # predict new temperature and humidity observation
             clf = load('rain-classifier.joblib')
             print("to predict --> temp: " +
-                  temperature + " ; humidity: " + humidity)
+                  str(temperature) + " ; humidity: " + str(humidity))
             # temperature, humidity
             newX = [[temperature, humidity]]
             result = clf.predict(newX)
