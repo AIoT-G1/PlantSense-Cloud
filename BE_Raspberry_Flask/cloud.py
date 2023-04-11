@@ -1,9 +1,13 @@
 import ssl
-from flask import Flask, request, jsonify, json
+from flask import Flask, request, jsonify, json, render_template, redirect, url_for
 from flask_cors import CORS
 from paho.mqtt import client as mqttClient
 from dba.mongo_dba import mongo_dba
 from ml.rain_predictor import rain_predictor
+# from teleflask import Teleflask
+
+#Email
+from flask_mail import Mail,  Message
 
 #   Init Flask Server   #
 app = Flask(__name__)
@@ -20,6 +24,23 @@ def onConnect(client, userdata, flags, rc):
 	mqtt.subscribe("nusIS5451Plantsense-weather")
 	mqtt.subscribe("nusIS5451Plantsense-water_tank")
 
+# Init Flask Mail #
+app.config['MAIL_SERVER']='smtp.gmail.com'
+app.config['MAIL_PORT'] = 465
+app.config['MAIL_USERNAME'] = 'plantsense.aiot@gmail.com'
+app.config['MAIL_PASSWORD'] = 'bnztzvlpgxueoxye'
+app.config['MAIL_USE_TLS'] = False
+app.config['MAIL_USE_SSL'] = True
+mail = Mail(app)
+
+# Init PlantSense Telegram Bot (@PlantSenseBot) # 
+# bot = Teleflask("6189463418:AAGvNioYlyqk8jxPQsBBQRHbRFoJRIhksN8")
+# bot.init_app(app)
+# bot.bot.send_message('@rxmxdhan', 'It works :D')  # please don't spam me :D
+# use bot from initialize above
+# from teleflask.messages import TextMessage
+
+# python3 -m teleflask.proxy --https api_key=6189463418:AAGvNioYlyqk8jxPQsBBQRHbRFoJRIhksN8 host=127.0.0.1 port=5000
 
 def onMessage(client, userdata, msg):
 	print(str(msg.payload.decode("utf-8")))
@@ -66,10 +87,10 @@ def onMessage(client, userdata, msg):
    
 	# Water tank level (level)
 	if msg.topic.split("-")[1] == "water_tank":
-			conn = mongo_dba("water_tank").update_water_tank(data)
-			
-	 
-	 
+		conn = mongo_dba("water_tank").update_water_tank(data)
+  
+		# Check if less than or equal to 20%, then send Email notification
+		send_mail("plantsense.aiot@gmail.com", "Hello,<br><br>Your water tank level has reached below 20%, please top as soon as possible in order for PlantSense system to be operable.<br><br>Your Smart Assistant,<br>PlantSense")
 
 mqtt = mqttClient.Client()
 mqtt.on_connect = onConnect
@@ -129,5 +150,59 @@ def upload_image():
  
 	return "OK"
 
+# Flask Email #
+# @app.route('/send/') # testing
+def send_mail_water_tank():
+	title = "PlantSense Alert: Low Water Tank Level!"
+	recipient = "plantsense.aiot@gmail.com"
+	
+	msg = mail.send_message(
+		title,
+		sender='plantsense.aiot@gmail.com',
+		recipients=[recipient],
+		html="Hello,<br><br>The water tank level has fallen below 20%. <br><br>Immediate action is required to top up the water level in order to ensure the proper operation of the PlantSense system.<br><br>Your Smart Assistant,<br>PlantSense"
+	)
+	return 'Mail sent'
+def send_mail_disease():
+	title = "PlantSense Alert: Disease Detected!"
+	recipient = "plantsense.aiot@gmail.com"
+	
+	msg = mail.send_message(
+		title,
+		sender='plantsense.aiot@gmail.com',
+		recipients=[recipient],
+		html="Hello,<br><br>We would like to inform your that Plant [A] is  t. <br><br>Possible causes: . Immediate action is required.<br><br>Your Smart Assistant,<br>PlantSense"
+	)
+	return 'Mail sent'
 
-app.run(host="10.249.114.123", port = "5000")
+#   Telegram Bot API via TeleFlask   #
+# Register the /start command
+# @bot.command("start")
+# def start(update, text):
+# 	# update is the update object. It is of type pytgbot.api_types.receivable.updates.Update
+# 	# text is the text after the command. Can be empty. Type is str.
+# 	return TextMessage("<b>Hello!</b> Thanks for using @" + bot.username + "!", parse_mode="html")
+# # end def
+
+# @bot.command("test")
+# def test(update, text):
+# 	return "You tested with {arg!r}".format(arg=text)
+# end def
+
+# register a function to be called for updates.
+# @bot.on_update
+# def foo(update):
+# 	from pytgbot.api_types.receivable.updates import Update
+# 	assert isinstance(update, Update)
+# 	# do stuff with the update
+# 	# you can use bot.bot to access the pytgbot.Bot's messages functions
+# 	if not update.message:
+# 		return
+# 		# you could use @bot.on_message instead of this if.
+# 	# end if
+# 	if update.message.new_chat_member:
+# 		return TextMessage("Welcome!")
+	# end if
+# end def
+
+app.run(host = "127.0.0.1", port = "5000")
