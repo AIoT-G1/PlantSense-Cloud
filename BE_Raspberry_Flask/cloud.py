@@ -104,9 +104,14 @@ def onMessage(client, userdata, msg):
 	# Water tank level (level)
 	if msg.topic.split("-")[1] == "water_tank":
 		conn = mongo_dba("water_tank").update_water_tank(data)
-  
+	
 		# Check if less than or equal to 20%, then send Email notification
-		send_mail("plantsense.aiot@gmail.com", "Hello,<br><br>Your water tank level has reached below 20%, please top as soon as possible in order for PlantSense system to be operable.<br><br>Your Smart Assistant,<br>PlantSense")
+		tank_level = data['tank_level']
+		if (float(tank_level) < 0.2):
+			percent = str(int(float(tank_level)*100)) + "%"
+			# print("percent: " + percent)
+			send_mail_water_tank(percent)
+   
 
 mqtt = mqttClient.Client()
 mqtt.on_connect = onConnect
@@ -168,28 +173,31 @@ def upload_image():
 
 # Flask Email #
 # @app.route('/send/') # testing
-def send_mail_water_tank():
-	title = "PlantSense Alert: Low Water Tank Level!"
-	recipient = "plantsense.aiot@gmail.com"
-	
-	msg = mail.send_message(
-		title,
-		sender='plantsense.aiot@gmail.com',
-		recipients=[recipient],
-		html="Hello,<br><br>The water tank level has fallen below 20%. <br><br>Immediate action is required to top up the water level in order to ensure the proper operation of the PlantSense system.<br><br>Your Smart Assistant,<br>PlantSense"
-	)
-	return 'Mail sent'
+def send_mail_water_tank(percent):
+	with app.app_context():
+		print("send_mail_water_tank()")
+		title = "PlantSense Alert: Low Water Tank Level!"
+		recipient = "plantsense.aiot@gmail.com"
+		
+		msg = mail.send_message(
+			title,
+			sender='plantsense.aiot@gmail.com',
+			recipients=[recipient],
+			html="Hello,<br><br>The water tank level has fallen below 20%. Currently, it is at " + percent + " according to our records. <br><br>Immediate action is required to top up the water level in order to ensure the proper operation of the PlantSense system.<br><br>Your Smart Assistant,<br>PlantSense"
+		)
+		return 'Mail sent'
 def send_mail_disease():
-	title = "PlantSense Alert: Disease Detected!"
-	recipient = "plantsense.aiot@gmail.com"
-	
-	msg = mail.send_message(
-		title,
-		sender='plantsense.aiot@gmail.com',
-		recipients=[recipient],
-		html="Hello,<br><br>We would like to inform your that Plant [A] is  t. <br><br>Possible causes: . Immediate action is required.<br><br>Your Smart Assistant,<br>PlantSense"
-	)
-	return 'Mail sent'
+	with app.app_context():
+		title = "PlantSense Alert: Disease Detected!"
+		recipient = "plantsense.aiot@gmail.com"
+		
+		msg = mail.send_message(
+			title,
+			sender='plantsense.aiot@gmail.com',
+			recipients=[recipient],
+			html="Hello,<br><br>We would like to inform your that Plant [A] is  t. <br><br>Possible causes: . Immediate action is required.<br><br>Your Smart Assistant,<br>PlantSense"
+		)
+		return 'Mail sent'
 
 #   Telegram Bot API via TeleFlask   #
 # Register the /start command
