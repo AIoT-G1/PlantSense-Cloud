@@ -4,11 +4,14 @@ from flask_cors import CORS
 from paho.mqtt import client as mqttClient
 from dba.mongo_dba import mongo_dba
 from ml.rain_predictor import rain_predictor
+import socket
 
 #   Init Flask Server   #
 app = Flask(__name__)
 CORS(app)
 app.config["DEBUG"] = False
+
+host_addr = "172.25.104.45"
 
 mqtt = None 
 
@@ -50,16 +53,7 @@ def onMessage(client, userdata, msg):
 			pred = rain_predictor().predict(data['temp'], data['humidity'])
 			print(pred)
 			mqtt.publish("nusIS5451Plantsense-prediction", str(json.dumps(
-			{"result": pred}))) # ------------ REVIEW THIS
-
-			# Test output (yes)
-			#print("rain prediction triggered")
-			#mqtt.publish("nusIS5451Plantsense-prediction", str(json.dumps(
-			#{"rain_result": "yes"}))) # ------------ REVIEW THIS
-   
-   			# Test output (no)
-			#mqtt.publish("nusIS5451Plantsense-prediction", str(json.dumps(
-			#{"result": "no"}))) # ------------ REVIEW THIS
+			{"result": pred})))
    
 		if data['action'] == "add_weather_data":
 			conn = mongo_dba("weather").add_weather_data(data)
@@ -130,4 +124,4 @@ def upload_image():
 	return "OK"
 
 
-app.run(host="10.249.114.123", port = "5000")
+app.run(host=host_addr, port = "5000")

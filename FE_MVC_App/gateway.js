@@ -1,4 +1,4 @@
-const url = 'http://172.25.107.100:5000';
+const url = "http://172.25.104.45:5000"
 
 // GET
 function getHttpSensorValues(){
