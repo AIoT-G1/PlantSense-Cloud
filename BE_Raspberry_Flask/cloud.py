@@ -3,8 +3,8 @@ from flask import Flask, request, jsonify, json, render_template, redirect, url_
 from flask_cors import CORS
 from paho.mqtt import client as mqttClient
 from dba.mongo_dba import mongo_dba
-from joblib import dump, load
-from ml.rain_predictor import rain_predictor
+from joblib import load
+import requests
 # from teleflask import Teleflask
 
 # Email
@@ -128,6 +128,7 @@ def onMessage(client, userdata, msg):
             percent = str(int(float(tank_level)*100)) + "%"
             # print("percent: " + percent)
             send_mail_water_tank(percent)
+            send_telegram_message("tank", percent)
 
 
 mqtt = mqttClient.Client()
@@ -229,6 +230,29 @@ def send_mail_disease(plantName):
         )
         return 'Mail sent'
 
+
+def send_telegram_tank(percent):
+    chat_id = "321924497"
+    api_key = "6088592232:AAG1laK2NXXq9uxJiLB6DJ8oaXElQrfl6QQ"
+
+    message = "Hello,<br><br>The water tank level has fallen below 20%. Currently, it is at " + percent + \
+        " according to our records. <br><br>Immediate action is required to top up the water level in order to ensure the proper operation of the PlantSense system.<br><br>Your Smart Assistant,<br>PlantSense"
+
+    url = f'https://api.telegram.org/bot{api_key}/sendMessage?chat_id={chat_id}&text={message}'
+    print(requests.get(url).json())  # this sends the message
+
+
+def send_telegram_disease(plantName):
+    chat_id = "321924497"
+    api_key = "6088592232:AAG1laK2NXXq9uxJiLB6DJ8oaXElQrfl6QQ"
+
+    message = "Hello, we would like to inform you that a disease has been detected on Plant " + plantName + \
+        ". Immediate action and extra care for the plant are required to mitigate the situation. As your trusted Smart Assistant, PlantSense urges you to take prompt measures to address the issue and safeguard the health of the plant. Timely intervention can help prevent further damage and ensure the well-being of your beloved plant. Your Smart Assistant,PlantSense"
+
+    url = f'https://api.telegram.org/bot{api_key}/sendMessage?chat_id={chat_id}&text={message}'
+    print(requests.get(url).json())  # this sends the message
+
+
 #   Telegram Bot API via TeleFlask   #
 # Register the /start command
 # @bot.command("start")
@@ -261,7 +285,7 @@ def send_mail_disease(plantName):
 
 
 # Other members to run local
-app.run(host=host_addr, port="5000")
+app.run(host="127.0.0.1", port="5000")
 
 # Jaume's main server
 # app.run(host=host_addr, port = "5000")
