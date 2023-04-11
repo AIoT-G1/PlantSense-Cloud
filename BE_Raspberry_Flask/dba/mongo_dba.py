@@ -66,6 +66,21 @@ class mongo_dba:
             )
 
         print(str(output))
+        
+    def update_last_image(self, data):
+        print(data)
+        find = self.col.find_one({'plant_node_id': data['plant_node_id']})
+
+        if find == None:
+            output = self.col.insert_one(data)
+        else:
+            output = self.col.update_one(
+                {'plant_node_id': data['plant_node_id']},
+                {'$set': data}, upsert=True
+            )
+
+        print(str(output))
+            
 
 # Collection Fx --> Weather 
     def add_weather_data(self, data):

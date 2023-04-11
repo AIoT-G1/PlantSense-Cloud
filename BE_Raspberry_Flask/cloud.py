@@ -22,6 +22,7 @@ def onConnect(client, userdata, flags, rc):
 
 
 def onMessage(client, userdata, msg):
+	print(str(msg.payload.decode("utf-8")))
 	data = json.loads(msg.payload.decode("utf-8").replace("'", "\""))
 	print("MQTT on message! ")
 	
@@ -37,6 +38,10 @@ def onMessage(client, userdata, msg):
    
 		if data['action'] == "update_last_watered":
 			conn = mongo_dba("plant_info").update_last_watered(data)
+   
+		if data['action'] == "update_last_image":
+			print(str(data))
+			conn = mongo_dba("plant_info").update_last_image(data)
   
 	# Weather conditions (timestamp, temp, humidity)
 	if msg.topic.split("-")[1] == "weather":
@@ -113,9 +118,16 @@ def update_pant_info():
 	print(str(data))
 	res = mongo_dba("plant_info").update_plant_info(data)
  
-	return str(res)
+	return str("OK")
+
+@app.route('/plant_info/upload_image', methods=['POST'])
+def upload_image():
+	data = request.form['data']
+	data = json.loads(data)
+ 
+	print(str(data))
+ 
+	return "OK"
 
 
-
-
-app.run()
+app.run(host="10.249.114.123", port = "5000")
