@@ -186,8 +186,9 @@ def send_mail_water_tank(percent):
 			html="Hello,<br><br>The water tank level has fallen below 20%. Currently, it is at " + percent + " according to our records. <br><br>Immediate action is required to top up the water level in order to ensure the proper operation of the PlantSense system.<br><br>Your Smart Assistant,<br>PlantSense"
 		)
 		return 'Mail sent'
-def send_mail_disease():
+def send_mail_disease(plantName):
 	with app.app_context():
+		print("send_mail_disease()")
 		title = "PlantSense Alert: Disease Detected!"
 		recipient = "plantsense.aiot@gmail.com"
 		
@@ -195,7 +196,7 @@ def send_mail_disease():
 			title,
 			sender='plantsense.aiot@gmail.com',
 			recipients=[recipient],
-			html="Hello,<br><br>We would like to inform your that Plant [A] is  t. <br><br>Possible causes: . Immediate action is required.<br><br>Your Smart Assistant,<br>PlantSense"
+			html="Hello,<br><br>We would like to inform you that a disease has been detected on Plant "+ plantName +". <br><br>. Immediate action and extra care for the plant are required to mitigate the situation.<br><br>As your trusted Smart Assistant, PlantSense urges you to take prompt measures to address the issue and safeguard the health of the plant. Timely intervention can help prevent further damage and ensure the well-being of your beloved plant.<br><br>Your Smart Assistant,<br>PlantSense"
 		)
 		return 'Mail sent'
 
