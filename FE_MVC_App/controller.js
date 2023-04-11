@@ -32,7 +32,7 @@ function load_current_plant() {
             "breed": data["plants_info"][0]['breed'],
             "moisture": 0,
             "light": 0,
-            "water_history": "yesterday"
+            "water_history": ["yesterday"]
         }
     }    
     else {
@@ -44,7 +44,7 @@ function load_current_plant() {
             "breed": "None",
             "moisture": 0,
             "light": 0,
-            "water_history" : "Never"
+            "water_history" : ["Never"]
         }
         if (data["plants_info"][0]['water_history'].length == 0) {
             current_plant['water_history'] = data["plants_info"][0]['water_history'][0]

@@ -42,7 +42,8 @@ def onMessage(client, userdata, msg):
 	if msg.topic.split("-")[1] == "weather":
 	  
 		if data['action'] == "predict":
-			pred = rain_predictor().predict(data['temp'], data['humidity']) 
+			pred = rain_predictor().predict(data['temp'], data['humidity'])
+			print(pred)
 			mqtt.publish("nusIS5451Plantsense-prediction", str(json.dumps(
 			{"result": pred}))) # ------------ REVIEW THIS
 
