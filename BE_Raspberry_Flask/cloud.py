@@ -4,7 +4,12 @@ from flask_cors import CORS
 from paho.mqtt import client as mqttClient
 from dba.mongo_dba import mongo_dba
 from joblib import load
+import joblib
+import sklearn
 import requests
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
 # from teleflask import Teleflask
 
 # Email
@@ -100,9 +105,9 @@ def onMessage(client, userdata, msg):
 
     # Weather conditions (timestamp, temp, humidity)
     if msg.topic.split("-")[1] == "weather":
-
+        print("rain prediction triggered")
         if data['action'] == "predict":
-            clf = load('rain-classifier.joblib')
+            clf = joblib.load('rain-classifier.joblib')
             temperature = data['temp']
             humidity = data['humidity']
             print(clf)
