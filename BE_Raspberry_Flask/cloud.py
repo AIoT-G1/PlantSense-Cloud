@@ -113,7 +113,7 @@ def onMessage(client, userdata, msg):
             # pred = rain_predictor().predict(data['temp'], data['humidity'])
             # print(pred)
             mqtt.publish("nusIS5451Plantsense-prediction", str(json.dumps(
-                {"result": result[0]})))  # ------------ REVIEW THIS
+                {"result": result[0].lower()})))  # ------------ REVIEW THIS
 
         if data['action'] == "add_weather_data":
             conn = mongo_dba("weather").add_weather_data(data)
