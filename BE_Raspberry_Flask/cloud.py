@@ -90,6 +90,9 @@ def onMessage(client, userdata, msg):
 
         if data['action'] == "update_last_watered":
             conn = mongo_dba("plant_info").update_last_watered(data)
+            
+        if data['action'] == "update_last_disease":
+            conn = mongo_dba("plant_info").update_last_disease(data)
 
         if data['action'] == "update_last_image_1":
             print(str(data))
@@ -286,7 +289,7 @@ def send_telegram_disease(plantName):
 
 
 # Other members to run local
-app.run(host="127.0.0.1", port="5000")
+app.run(host=host_addr, port="5000")
 
 # Jaume's main server
 # app.run(host=host_addr, port = "5000")
