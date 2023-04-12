@@ -95,7 +95,7 @@ def onMessage(client, userdata, msg):
 
         if data['action'] == "update_last_watered":
             conn = mongo_dba("plant_info").update_last_watered(data)
-            
+
         if data['action'] == "update_last_disease":
             conn = mongo_dba("plant_info").update_last_disease(data)
 
@@ -241,7 +241,7 @@ def send_mail_disease(plantName):
 
 
 def send_telegram_tank(percent):
-    chat_id = "321924497"
+    chat_id = "-1001696530800"
     api_key = "6088592232:AAG1laK2NXXq9uxJiLB6DJ8oaXElQrfl6QQ"
 
     message = "Hello. The water tank level has fallen below 20%. Currently, it is at " + percent + \
@@ -252,7 +252,7 @@ def send_telegram_tank(percent):
 
 
 def send_telegram_disease(plantName):
-    chat_id = "321924497"
+    chat_id = "-1001696530800"
     api_key = "6088592232:AAG1laK2NXXq9uxJiLB6DJ8oaXElQrfl6QQ"
 
     message = "Hello, we would like to inform you that a disease has been detected on Plant " + plantName + \
