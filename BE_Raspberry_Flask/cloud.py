@@ -102,6 +102,7 @@ def onMessage(client, userdata, msg):
             clf = load('rain-classifier.joblib')
             temperature = data['temp']
             humidity = data['humidity']
+            print(clf)
 
             print("to predict --> temp: " +
                   str(temperature) + " ; humidity: " + str(humidity))
@@ -128,7 +129,7 @@ def onMessage(client, userdata, msg):
             percent = str(int(float(tank_level)*100)) + "%"
             # print("percent: " + percent)
             send_mail_water_tank(percent)
-            send_telegram_message("tank", percent)
+            send_telegram_tank(percent)
 
 
 mqtt = mqttClient.Client()
@@ -235,8 +236,8 @@ def send_telegram_tank(percent):
     chat_id = "321924497"
     api_key = "6088592232:AAG1laK2NXXq9uxJiLB6DJ8oaXElQrfl6QQ"
 
-    message = "Hello,<br><br>The water tank level has fallen below 20%. Currently, it is at " + percent + \
-        " according to our records. <br><br>Immediate action is required to top up the water level in order to ensure the proper operation of the PlantSense system.<br><br>Your Smart Assistant,<br>PlantSense"
+    message = "Hello. The water tank level has fallen below 20%. Currently, it is at " + percent + \
+        " according to our records. Immediate action is required to top up the water level in order to ensure the proper operation of the PlantSense system. Your Smart Assistant, PlantSense"
 
     url = f'https://api.telegram.org/bot{api_key}/sendMessage?chat_id={chat_id}&text={message}'
     print(requests.get(url).json())  # this sends the message
