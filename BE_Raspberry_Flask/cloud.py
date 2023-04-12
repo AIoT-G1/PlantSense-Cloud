@@ -3,7 +3,7 @@ from flask import Flask, request, jsonify, json, render_template, redirect, url_
 from flask_cors import CORS
 from paho.mqtt import client as mqttClient
 from dba.mongo_dba import mongo_dba
-from ml.rain_predictor import rain_predictor
+import ml.rain_predictor as predictor
 # from teleflask import Teleflask
 
 #Email
@@ -16,7 +16,7 @@ app = Flask(__name__)
 CORS(app)
 app.config["DEBUG"] = False
 
-host_addr = "192.168.0.101"
+host_addr = "172.25.107.100"
 
 mqtt = None 
 picture_url = []
@@ -84,6 +84,9 @@ def onMessage(client, userdata, msg):
 		if data['action'] == "update_last_watered":
 			conn = mongo_dba("plant_info").update_last_watered(data)
    
+		if data['action'] == "update_last_disease":
+			conn = mongo_dba("plant_info").update_last_disease(data)
+   
 		if data['action'] == "update_last_image_1":
 			print(str(data))
 			manage_image_chunks(data)
@@ -93,7 +96,7 @@ def onMessage(client, userdata, msg):
 	if msg.topic.split("-")[1] == "weather":
 	  
 		if data['action'] == "predict":
-			pred = rain_predictor().predict(data['temp'], data['humidity'])
+			pred = predictor.predict(data['temp'], data['humidity'])
 			print(pred)
 			mqtt.publish("nusIS5451Plantsense-prediction", str(json.dumps(
 			{"result": pred}))) # ------------ REVIEW THIS
@@ -111,6 +114,7 @@ def onMessage(client, userdata, msg):
 			percent = str(int(float(tank_level)*100)) + "%"
 			# print("percent: " + percent)
 			send_mail_water_tank(percent)
+			print("mail sent")
    
 
 mqtt = mqttClient.Client()
